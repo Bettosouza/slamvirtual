@@ -130,7 +130,7 @@
       position: fixed;
       top: calc(max(8px, env(safe-area-inset-top)) + 64px);
       right: 16px;
-      width: 380px;
+      width: 390px;
       max-width: calc(100vw - 32px);
       max-height: calc(100dvh - 96px);
       z-index: 1000;
@@ -361,7 +361,6 @@
     </div>
 
     <div class="flex items-center gap-1.5 pointer-events-auto shrink-0">
-      <!-- Microfone WebRTC (Praça aberta pelo GM ou Poeta da Vez no palco) -->
       <button id="btn-stage-mic" type="button" class="earthy-glass min-h-[44px] px-2.5 sm:px-3 rounded-xl text-xs font-extrabold text-[#F4ECE1] hover:border-[#D99B26] transition flex items-center gap-1.5 shadow-lg" title="Microfone de Voz">
         <span id="mic-dot" class="w-2.5 h-2.5 rounded-full bg-[#F4ECE1]/40"></span>
         <span id="mic-label">Mic: Mudo</span>
@@ -412,51 +411,103 @@
       </div>
     </div>
 
-    <!-- PAINEL A: SLAMMASTER (GM HOST) -->
+    <!-- PAINEL A: SLAMMASTER (GM HOST) OTIMIZADO -->
     <div id="gm-panel" class="hidden flex-col flex-1 min-h-0 overflow-hidden">
-      <div class="px-3.5 py-2 bg-[#1D130E]/70 border-b border-[#F4ECE1]/10 flex items-center justify-between gap-1.5 flex-wrap shrink-0">
-        <button id="btn-gm-plaza-voice" type="button" class="min-h-[36px] px-2.5 py-1 rounded-lg bg-[#2B1D16] hover:bg-[#C85A32] border border-[#D99B26]/50 text-[11px] font-extrabold text-[#D99B26] hover:text-[#F4ECE1] transition shadow flex items-center gap-1">
-          <span>🔊 Abrir Voz da Praça</span>
-        </button>
-        <button id="btn-add-bots" type="button" class="min-h-[36px] px-2.5 py-1 rounded-lg bg-[#4E6E58] hover:bg-[#5c8168] text-[11px] font-extrabold text-[#F4ECE1] transition shadow">
-          +4 Bots
-        </button>
+      <div class="px-3.5 py-2.5 bg-[#1D130E]/85 border-b border-[#F4ECE1]/10 space-y-2 shrink-0">
+        <div class="flex items-center justify-between gap-2 text-[11px]">
+          <span class="font-bold text-[#F4ECE1]/80 truncate">🎤 Palco: <strong id="gm-quick-stage-name" class="text-[#D99B26]">Livre</strong></span>
+          <span class="font-mono-led font-extrabold text-[#F4ECE1] bg-[#2B1D16] px-2 py-0.5 rounded border border-[#F4ECE1]/15" id="gm-quick-timer">00:00</span>
+        </div>
+        <div class="grid grid-cols-3 gap-1.5">
+          <button id="btn-gm-plaza-voice" type="button" class="min-h-[36px] px-2 py-1 rounded-lg bg-[#2B1D16] hover:bg-[#C85A32] border border-[#D99B26]/50 text-[10px] font-extrabold text-[#D99B26] hover:text-[#F4ECE1] transition shadow flex items-center justify-center gap-1">
+            <span>🔊 Voz Praça</span>
+          </button>
+          <button id="btn-toggle-npc-ai" type="button" class="min-h-[36px] px-2 py-1 rounded-lg bg-[#4E6E58] hover:brightness-110 border border-[#F4ECE1]/20 text-[10px] font-extrabold text-[#F4ECE1] transition shadow flex items-center justify-center gap-1">
+            <span>🧠 IA: ON</span>
+          </button>
+          <button id="btn-add-bots" type="button" class="min-h-[36px] px-2 py-1 rounded-lg bg-[#C85A32] hover:brightness-110 text-[10px] font-extrabold text-[#F4ECE1] transition shadow flex items-center justify-center gap-1">
+            <span>+4 Bots IA</span>
+          </button>
+        </div>
       </div>
 
-      <div class="grid grid-cols-4 border-b border-[#F4ECE1]/10 bg-[#1D130E]/40 p-1 gap-1 shrink-0">
-        <button type="button" data-gm-tab="juri" class="gm-tab-btn min-h-[38px] py-1.5 px-1 rounded-xl text-[11px] font-extrabold transition bg-[#C85A32] text-[#F4ECE1]">
-          Júri (5)
+      <div class="grid grid-cols-4 border-b border-[#F4ECE1]/10 bg-[#1D130E]/45 p-1 gap-1 shrink-0">
+        <button type="button" data-gm-tab="palco" class="gm-tab-btn min-h-[38px] py-1.5 px-1 rounded-xl text-[11px] font-extrabold transition bg-[#C85A32] text-[#F4ECE1]">
+          1. Palco
+        </button>
+        <button type="button" data-gm-tab="juri" class="gm-tab-btn min-h-[38px] py-1.5 px-1 rounded-xl text-[11px] font-bold transition text-[#F4ECE1]/70 hover:text-[#F4ECE1]">
+          2. Júri
         </button>
         <button type="button" data-gm-tab="poetas" class="gm-tab-btn min-h-[38px] py-1.5 px-1 rounded-xl text-[11px] font-bold transition text-[#F4ECE1]/70 hover:text-[#F4ECE1]">
-          Poetas
-        </button>
-        <button type="button" data-gm-tab="palco" class="gm-tab-btn min-h-[38px] py-1.5 px-1 rounded-xl text-[11px] font-bold transition text-[#F4ECE1]/70 hover:text-[#F4ECE1]">
-          Palco
+          3. Lista
         </button>
         <button type="button" data-gm-tab="chat" class="gm-tab-btn min-h-[38px] py-1.5 px-1 rounded-xl text-[11px] font-bold transition text-[#F4ECE1]/70 hover:text-[#F4ECE1]">
-          Chat
+          4. Praça
         </button>
       </div>
 
       <div class="p-3.5 flex-1 overflow-y-auto custom-scroll space-y-3">
 
-        <!-- ABA 1: MESA DO JÚRI (5 JURADOS) & CONTROLE DE MUTE INDIVIDUAL -->
-        <section id="gm-tab-juri" class="gm-tab-content space-y-3">
-          <div class="earthy-subcard rounded-xl p-3 space-y-2">
-            <div class="flex items-center justify-between">
-              <span class="text-xs font-extrabold text-[#D99B26]">Jurados Escalados (<span id="gm-jury-count">0</span>/5)</span>
-              <button id="btn-gm-random-jury" type="button" class="px-2.5 py-1 rounded-lg bg-[#4E6E58] hover:bg-[#5c8168] text-[11px] font-bold text-[#F4ECE1] transition">
-                Sortear 5
-              </button>
+        <!-- ABA 1: PALCO, CRONÔMETRO & PLACAR -->
+        <section id="gm-tab-palco" class="gm-tab-content space-y-3">
+          <div class="earthy-subcard rounded-xl p-3.5 text-center space-y-2.5 border border-[#D99B26]/30">
+            <div class="flex items-center justify-between text-[10px] font-bold uppercase tracking-wider text-[#D99B26]">
+              <span>Cronômetro Oficial (3:00)</span>
+              <span>Tol: 03:10</span>
             </div>
-            <div id="gm-jury-slots" class="flex flex-wrap gap-1.5 min-h-[26px]">
-              <span class="text-[11px] text-[#F4ECE1]/50">Selecione até 5 pessoas abaixo.</span>
+            <div id="gm-stage-timer-big" class="font-mono-led text-4xl font-extrabold text-[#F4ECE1]">00:00</div>
+            <div class="grid grid-cols-3 gap-1.5 pt-1">
+              <button id="btn-gm-timer-start" type="button" class="min-h-[42px] py-2 rounded-xl bg-[#4E6E58] hover:bg-[#5c8168] text-xs font-extrabold text-[#F4ECE1] shadow">▶ Iniciar</button>
+              <button id="btn-gm-timer-pause" type="button" class="min-h-[42px] py-2 rounded-xl bg-[#D99B26] hover:brightness-110 text-xs font-extrabold text-[#2B1D16] shadow">⏸ Pausar</button>
+              <button id="btn-gm-timer-reset" type="button" class="min-h-[42px] py-2 rounded-xl bg-[#2B1D16] hover:bg-[#C85A32] border border-[#F4ECE1]/20 text-xs font-extrabold text-[#F4ECE1]">↺ Zerar</button>
             </div>
           </div>
 
-          <button id="btn-gm-request-scores" type="button" class="w-full min-h-[44px] py-2.5 px-3 rounded-xl font-extrabold text-xs uppercase tracking-wide bg-gradient-to-r from-[#C85A32] to-[#D99B26] text-[#2B1D16] hover:brightness-110 transition shadow-lg">
-            Pedir / Revelar Notas do Júri
-          </button>
+          <div class="earthy-subcard rounded-xl p-3 space-y-2">
+            <span class="block text-[11px] font-extrabold uppercase tracking-wider text-[#D99B26]">Fluxo da Rodada</span>
+            <div class="grid grid-cols-2 gap-1.5">
+              <button id="btn-gm-call-next-poet-quick" type="button" class="min-h-[42px] py-2 px-2.5 rounded-xl font-extrabold text-[11px] bg-[#4E6E58] hover:bg-[#5c8168] text-[#F4ECE1] transition shadow">
+                🎤 Chamar Próximo
+              </button>
+              <button id="btn-gm-request-scores-quick" type="button" class="min-h-[42px] py-2 px-2.5 rounded-xl font-extrabold text-[11px] bg-gradient-to-r from-[#C85A32] to-[#D99B26] text-[#2B1D16] hover:brightness-110 transition shadow">
+                📋 Revelar Notas
+              </button>
+            </div>
+            <button id="btn-gm-end-round" type="button" class="w-full min-h-[42px] py-2 px-3 rounded-xl font-extrabold text-xs uppercase tracking-wide bg-[#C85A32] hover:bg-[#d9673e] text-[#F4ECE1] transition shadow">
+              🏆 Salvar Nota &amp; Baixar Plaquinhas
+            </button>
+            <button id="btn-gm-clear-stage-palco" type="button" class="hidden w-full min-h-[38px] py-1.5 px-3 rounded-xl font-extrabold text-[11px] bg-[#2B1D16] hover:bg-[#C85A32] border border-[#D99B26]/40 text-[#D99B26] hover:text-[#F4ECE1] transition">
+              ⬇️ Descer Poeta &amp; Liberar Voz da Praça
+            </button>
+          </div>
+
+          <div class="earthy-subcard rounded-xl p-3 space-y-2">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-extrabold text-[#D99B26]">🏆 Classificação da Edição</span>
+              <span class="text-[10px] text-[#F4ECE1]/55">3 notas centrais</span>
+            </div>
+            <div id="gm-leaderboard-list" class="space-y-1 text-xs max-h-40 overflow-y-auto custom-scroll">
+              <p class="text-[11px] text-[#F4ECE1]/50">Nenhuma pontuação salva ainda.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- ABA 2: MESA DO JÚRI (5 JURADOS) -->
+        <section id="gm-tab-juri" class="gm-tab-content hidden space-y-3">
+          <div class="earthy-subcard rounded-xl p-3 space-y-2.5 border border-[#D99B26]/30">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-extrabold text-[#D99B26]">Mesa do Júri (<span id="gm-jury-count">0</span>/5)</span>
+              <button id="btn-gm-random-jury" type="button" class="px-2.5 py-1 rounded-lg bg-[#4E6E58] hover:bg-[#5c8168] text-[11px] font-bold text-[#F4ECE1] transition">
+                🎲 Sortear 5
+              </button>
+            </div>
+            <div id="gm-jury-slots" class="flex flex-wrap gap-1.5 min-h-[26px]">
+              <span class="text-[11px] text-[#F4ECE1]/50">Selecione até 5 pessoas na aba "4. Praça" ou clique em Sortear 5.</span>
+            </div>
+            <button id="btn-gm-request-scores" type="button" class="w-full min-h-[44px] py-2.5 px-3 rounded-xl font-extrabold text-xs uppercase tracking-wide bg-gradient-to-r from-[#C85A32] to-[#D99B26] text-[#2B1D16] hover:brightness-110 transition shadow-lg">
+              📋 Pedir / Revelar Notas no Telão
+            </button>
+          </div>
 
           <div id="gm-self-judge-box" class="hidden earthy-subcard rounded-xl p-3 border border-[#D99B26]/40 space-y-2">
             <div class="flex items-center justify-between">
@@ -465,17 +516,12 @@
             </div>
             <input id="gm-self-score-slider" type="range" min="0" max="10" step="0.1" value="9.8" class="slam-slider" />
             <button id="btn-gm-self-placard" type="button" class="w-full min-h-[42px] py-2 rounded-xl bg-[#2B1D16] hover:bg-[#C85A32] border border-[#D99B26]/40 text-xs font-extrabold text-[#F4ECE1] transition">
-              Levantar / Baixar Minha Plaquinha (Espaço)
+              Levantar / Baixar Minha Plaquinha (P)
             </button>
-          </div>
-
-          <div class="earthy-subcard rounded-xl p-3 space-y-2">
-            <span class="block text-[11px] font-bold uppercase tracking-wider text-[#F4ECE1]/70">Na Praça Agora (Júri &amp; Mute de Voz)</span>
-            <div id="gm-players-list" class="space-y-1.5 max-h-52 overflow-y-auto custom-scroll pr-1"></div>
           </div>
         </section>
 
-        <!-- ABA 2: POETAS & CHAPEUZINHO VIRTUAL -->
+        <!-- ABA 3: POETAS & CHAPEUZINHO VIRTUAL -->
         <section id="gm-tab-poetas" class="gm-tab-content hidden space-y-3">
           <div class="earthy-subcard rounded-xl p-3 flex items-center justify-between gap-2">
             <div>
@@ -488,7 +534,7 @@
           </div>
 
           <form id="gm-add-poet-form" class="earthy-subcard rounded-xl p-3 space-y-2">
-            <label for="gm-manual-poet-input" class="block text-[11px] font-bold text-[#F4ECE1]/80">Adicionar Nome Manualmente</label>
+            <label for="gm-manual-poet-input" class="block text-[11px] font-bold text-[#F4ECE1]/80">Adicionar Poeta Manualmente</label>
             <div class="flex gap-1.5">
               <input id="gm-manual-poet-input" type="text" maxlength="20" placeholder="Nome do poeta..."
                 class="flex-1 min-w-0 px-3 py-2 rounded-xl bg-[#2B1D16] border border-[#F4ECE1]/20 text-xs text-[#F4ECE1] focus:outline-none focus:border-[#D99B26]" />
@@ -506,8 +552,8 @@
             <div id="gm-poet-pool-list" class="flex flex-wrap gap-1.5 min-h-[26px]">
               <span class="text-[11px] text-[#F4ECE1]/50">Abra inscrições ou adicione poetas.</span>
             </div>
-            <button id="btn-gm-draw-order" type="button" class="w-full min-h-[44px] py-2.5 px-3 rounded-xl font-extrabold text-xs uppercase tracking-wide bg-gradient-to-r from-[#D99B26] to-[#C85A32] text-[#2B1D16] hover:brightness-110 transition shadow">
-              Sortear Ordem dos Poetas
+            <button id="btn-gm-draw-order" type="button" class="w-full min-h-[42px] py-2 px-3 rounded-xl font-extrabold text-xs uppercase tracking-wide bg-gradient-to-r from-[#D99B26] to-[#C85A32] text-[#2B1D16] hover:brightness-110 transition shadow">
+              🎲 Sortear Ordem dos Poetas
             </button>
           </div>
 
@@ -519,8 +565,8 @@
             <ol id="gm-drawn-order-list" class="space-y-1 text-xs max-h-36 overflow-y-auto custom-scroll">
               <li class="text-[11px] text-[#F4ECE1]/50">Aguardando sorteio...</li>
             </ol>
-            <button id="btn-gm-call-next-poet" type="button" class="w-full min-h-[44px] py-2.5 px-3 rounded-xl font-extrabold text-xs uppercase tracking-wide bg-[#4E6E58] hover:bg-[#5c8168] text-[#F4ECE1] transition shadow">
-              Chamar Próximo Poeta ao Palco
+            <button id="btn-gm-call-next-poet" type="button" class="w-full min-h-[42px] py-2 px-3 rounded-xl font-extrabold text-xs uppercase tracking-wide bg-[#4E6E58] hover:bg-[#5c8168] text-[#F4ECE1] transition shadow">
+              🎤 Chamar Próximo Poeta ao Palco
             </button>
             <button id="btn-gm-clear-stage" type="button" class="hidden w-full min-h-[40px] py-2 px-3 rounded-xl font-extrabold text-xs uppercase tracking-wide bg-[#2B1D16] hover:bg-[#C85A32] border border-[#D99B26]/40 text-[#D99B26] hover:text-[#F4ECE1] transition">
               ⬇️ Descer Poeta &amp; Liberar Voz da Praça
@@ -528,67 +574,39 @@
           </div>
         </section>
 
-        <!-- ABA 3: PALCO & CRONÔMETRO -->
-        <section id="gm-tab-palco" class="gm-tab-content hidden space-y-3">
-          <div class="earthy-subcard rounded-xl p-3 space-y-2 border border-[#D99B26]/30">
-            <div class="flex items-center justify-between gap-2">
-              <div>
-                <span class="block text-xs font-extrabold text-[#D99B26]">Chat de Voz da Praça</span>
-                <span id="gm-voice-status-desc" class="text-[11px] text-[#F4ECE1]/70">Fechado (só GM fala)</span>
-              </div>
-              <button id="btn-gm-plaza-voice-alt" type="button" class="min-h-[38px] px-3 py-1.5 rounded-xl bg-[#4E6E58] hover:bg-[#5c8168] text-xs font-extrabold text-[#F4ECE1] transition shadow shrink-0">
+        <!-- ABA 4: PARTICIPANTES DA PRAÇA, VOZ, CHAT E ENCERRAMENTO -->
+        <section id="gm-tab-chat" class="gm-tab-content hidden space-y-3">
+          <div class="earthy-subcard rounded-xl p-3 space-y-2">
+            <div class="flex items-center justify-between">
+              <span class="text-[11px] font-bold uppercase tracking-wider text-[#D99B26]">Na Praça Agora (Palco / Júri / Voz)</span>
+              <button id="btn-gm-plaza-voice-alt" type="button" class="px-2.5 py-1 rounded-lg bg-[#4E6E58] hover:bg-[#5c8168] text-[10px] font-extrabold text-[#F4ECE1] transition">
                 🔊 Abrir Praça
               </button>
             </div>
-            <p class="text-[10px] text-[#F4ECE1]/60 leading-relaxed">
-              Quando um <strong>Poeta da Vez</strong> sobe ao palco, toda a praça é mutada automaticamente até o poeta descer.
-            </p>
+            <div id="gm-players-list" class="space-y-1.5 max-h-44 overflow-y-auto custom-scroll pr-1"></div>
           </div>
 
-          <div class="earthy-subcard rounded-xl p-3.5 text-center space-y-2.5">
-            <span class="block text-[11px] font-bold uppercase tracking-wider text-[#D99B26]">Cronômetro Oficial (3:00)</span>
-            <div id="gm-stage-timer-big" class="font-mono-led text-4xl font-extrabold text-[#F4ECE1]">00:00</div>
-            <p class="text-[11px] text-[#F4ECE1]/65">Tolerância: 03:01 a 03:10 • Estouro: &gt; 03:10</p>
-            <div class="grid grid-cols-3 gap-1.5 pt-1">
-              <button id="btn-gm-timer-start" type="button" class="min-h-[40px] py-2 rounded-xl bg-[#4E6E58] hover:bg-[#5c8168] text-xs font-extrabold text-[#F4ECE1]">Iniciar</button>
-              <button id="btn-gm-timer-pause" type="button" class="min-h-[40px] py-2 rounded-xl bg-[#D99B26] hover:brightness-110 text-xs font-extrabold text-[#2B1D16]">Pausar</button>
-              <button id="btn-gm-timer-reset" type="button" class="min-h-[40px] py-2 rounded-xl bg-[#2B1D16] hover:bg-[#C85A32] border border-[#F4ECE1]/20 text-xs font-extrabold text-[#F4ECE1]">Zerar</button>
+          <div class="earthy-subcard rounded-xl p-2.5 space-y-2">
+            <div class="flex items-center justify-between">
+              <span class="text-[11px] font-bold uppercase text-[#F4ECE1]/70">Chat &amp; Diálogos da Praça</span>
+              <button id="btn-npc-chat-now" type="button" class="px-2 py-0.5 rounded bg-[#2B1D16] hover:bg-[#C85A32] border border-[#D99B26]/40 text-[10px] font-bold text-[#D99B26] hover:text-[#F4ECE1] transition">
+                💬 Conversa IA
+              </button>
             </div>
+            <div id="gm-chat-feed" class="h-36 overflow-y-auto custom-scroll space-y-1.5 text-xs"></div>
+            <form id="gm-chat-form" class="flex gap-1.5">
+              <input id="gm-chat-input" type="text" maxlength="65" placeholder="Falar com a arena..."
+                class="flex-1 min-w-0 px-3 py-2 rounded-xl bg-[#2B1D16] border border-[#F4ECE1]/20 text-xs text-[#F4ECE1] focus:outline-none focus:border-[#D99B26]" />
+              <button type="submit" class="px-3 py-2 rounded-xl bg-[#D99B26] text-[#2B1D16] font-extrabold text-xs">Enviar</button>
+            </form>
           </div>
 
-          <div class="earthy-subcard rounded-xl p-3 space-y-2">
-            <span class="block text-xs font-extrabold text-[#F4ECE1]">Encerrar Rodada</span>
-            <p class="text-[11px] text-[#F4ECE1]/70">Salva a nota oficial no ranking e baixa todas as plaquinhas.</p>
-            <button id="btn-gm-end-round" type="button" class="w-full min-h-[44px] py-2.5 px-3 rounded-xl font-extrabold text-xs uppercase tracking-wide bg-[#C85A32] hover:bg-[#d9673e] text-[#F4ECE1] transition shadow">
-              Salvar Nota &amp; Baixar Placas
-            </button>
-          </div>
-
-          <div class="earthy-subcard rounded-xl p-3 space-y-2">
-            <span class="block text-xs font-extrabold text-[#D99B26]">Placar da Edição</span>
-            <div id="gm-leaderboard-list" class="space-y-1 text-xs">
-              <p class="text-[11px] text-[#F4ECE1]/50">Nenhuma pontuação salva ainda.</p>
-            </div>
-          </div>
-
-          <!-- Encerrar Sala do Slam e Desligar Todos -->
           <div class="earthy-subcard rounded-xl p-3 space-y-2 border border-red-500/40 bg-red-950/25">
             <span class="block text-xs font-extrabold text-red-400">Encerrar Evento</span>
-            <p class="text-[11px] text-[#F4ECE1]/70">Fecha a sala do Slam, desconecta todos os participantes da praça e volta ao Lobby.</p>
-            <button id="btn-gm-close-room" type="button" class="w-full min-h-[44px] py-2.5 px-3 rounded-xl font-extrabold text-xs uppercase tracking-wide bg-red-700 hover:bg-red-600 text-white transition shadow-lg">
+            <button id="btn-gm-close-room" type="button" class="w-full min-h-[42px] py-2 px-3 rounded-xl font-extrabold text-xs uppercase tracking-wide bg-red-700 hover:bg-red-600 text-white transition shadow-lg">
               🚪 Fechar Sala e Desligar Todos
             </button>
           </div>
-        </section>
-
-        <!-- ABA 4: CHAT DO GM -->
-        <section id="gm-tab-chat" class="gm-tab-content hidden space-y-2.5">
-          <div id="gm-chat-feed" class="earthy-subcard rounded-xl p-2.5 h-56 overflow-y-auto custom-scroll space-y-1.5 text-xs"></div>
-          <form id="gm-chat-form" class="flex gap-1.5">
-            <input id="gm-chat-input" type="text" maxlength="65" placeholder="Falar com a arena..."
-              class="flex-1 min-w-0 px-3 py-2 rounded-xl bg-[#2B1D16] border border-[#F4ECE1]/20 text-xs text-[#F4ECE1] focus:outline-none focus:border-[#D99B26]" />
-            <button type="submit" class="px-3 py-2 rounded-xl bg-[#D99B26] text-[#2B1D16] font-extrabold text-xs">Enviar</button>
-          </form>
         </section>
       </div>
     </div>
@@ -704,10 +722,16 @@
       <span>Quero Rimar!</span>
     </button>
 
-    <button id="btn-quick-cheer" type="button" class="earthy-glass min-h-[44px] px-3.5 rounded-2xl text-[#F4ECE1] font-extrabold text-xs shadow-xl border border-[#D99B26]/40 active:scale-95 transition flex items-center gap-1.5">
-      <span>🔥</span>
-      <span>É POESIA!</span>
-    </button>
+    <div class="flex items-center gap-2">
+      <button id="btn-quick-focus-stage" type="button" class="earthy-glass min-h-[44px] px-3 rounded-2xl text-[#F4ECE1] font-extrabold text-xs shadow-xl border border-[#D99B26]/40 active:scale-95 transition flex items-center gap-1" title="Centralizar olhar no palco (Tecla F)">
+        <span>🎯</span>
+        <span>Palco</span>
+      </button>
+      <button id="btn-quick-cheer" type="button" class="earthy-glass min-h-[44px] px-3.5 rounded-2xl text-[#F4ECE1] font-extrabold text-xs shadow-xl border border-[#D99B26]/40 active:scale-95 transition flex items-center gap-1.5">
+        <span>🔥</span>
+        <span>É POESIA!</span>
+      </button>
+    </div>
 
     <div class="flex items-center gap-2">
       <button id="btn-quick-sit" type="button" class="earthy-glass min-h-[46px] px-3 rounded-2xl text-[#F4ECE1] font-extrabold text-xs shadow-xl border border-[#D99B26]/40 active:scale-95 transition flex items-center gap-1" title="Sentar na roda (Tecla C)">
@@ -729,24 +753,19 @@
     <span class="opacity-30">•</span>
     <span><strong class="text-[#D99B26]">C</strong> Sentar</span>
     <span class="opacity-30">•</span>
+    <span><strong class="text-[#D99B26]">F</strong> Olhar Palco</span>
+    <span class="opacity-30">•</span>
     <span><strong class="text-[#D99B26]">V</strong> 1ª / 3ª Pessoa</span>
     <span class="opacity-30">•</span>
     <span><strong class="text-[#D99B26]">P / E</strong> Plaquinha</span>
   </div>
 
-  <!-- TOAST DE FEEDBACK DISCRETO (Substitui alert/confirm) -->
+  <!-- TOAST DE FEEDBACK DISCRETO -->
   <div id="toast-banner" class="fixed bottom-24 left-1/2 -translate-x-1/2 z-[1100] px-4 py-2 rounded-full bg-[#C85A32] text-[#F4ECE1] text-xs font-extrabold shadow-xl opacity-0 pointer-events-none transition-opacity duration-300 border border-[#D99B26]/60 text-center max-w-[90vw]">
     Aviso
   </div>
 
   <script>
-    /**
-     * ARENA SLAM 3D - MULTIPLAYER P2P (GITHUB PAGES READY)
-     * 1. Interface Mobile-First com gaveta em tela cheia e fechamento fixo no topo e rodapé.
-     * 2. Rastreamento 30 Hz (Celular <-> Web) via PeerJS DataChannel não-bloqueante + BroadcastChannel.
-     * 3. Chat de Voz da Praça controlado pelo GM com mute individual e silêncio automático no palco.
-     * 4. Coreto decagonal em 2 pavimentos e Caixote do Encontrão Poético caminháveis.
-     */
     (function () {
       // =========================================================================
       // 1. UTILITÁRIOS DE IDENTIFICAÇÃO E ESTADO GLOBAL
@@ -779,7 +798,9 @@
         hasEntered: false,
         roomCode: 'SLAM-2026',
         isHost: false,
-        cameraMode: 'first', // 'first' | 'third'
+        cameraMode: 'first',
+        npcAiEnabled: true,
+        stagePulseBoost: 0,
 
         localPlayer: {
           uid: localUid,
@@ -797,27 +818,29 @@
           onGround: true,
           isMoving: false,
           isSitting: false,
+          micActive: false,
+          speakingLevel: 0,
           score: 9.8,
           placardRaised: false
         },
 
         room: {
           gmUid: null,
-          players: {},          // { [uid]: playerData }
-          juryUids: [],         // Até 5 uids
-          stagePoetUid: null,   // uid do poeta no palco
-          plazaVoiceOpen: false,// Chat de voz aberto para toda a praça pelo GM
-          mutedUids: [],        // Lista de uids mutados especificamente pelo GM
+          players: {},
+          juryUids: [],
+          stagePoetUid: null,
+          plazaVoiceOpen: false,
+          mutedUids: [],
           registrationsOpen: false,
-          registeredPoets: [],  // [{ uid, name }]
-          drawnOrder: [],       // [{ uid, name, done }]
+          registeredPoets: [],
+          drawnOrder: [],
           currentPoetIndex: -1,
           timerRunning: false,
           elapsedSeconds: 0,
           scoresRevealed: false,
           officialTotal: null,
           discardedUids: [],
-          leaderboard: []       // [{ name, score }]
+          leaderboard: []
         },
 
         chatMessages: [],
@@ -833,7 +856,7 @@
         localAudioStream: null
       };
 
-      // Referências da rede P2P e BroadcastChannel
+      // Referências de Rede P2P, Áudio e Motor de IA dos NPCs
       let peerInstance = null;
       let hostConnection = null;
       const clientConnections = new Map();
@@ -849,14 +872,27 @@
       let lastSentZ = 0;
       let lastSentRotY = 0;
 
-      // Referências Three.js
+      const npcBrains = new Map();
+      let lastObservedStagePoetUid = null;
+      let nextNpcDialogTime = 0;
+      let npcDialogBusy = false;
+
+      // Referências Three.js & Analisadores de Voz
       let scene = null;
       let camera = null;
       let renderer = null;
       let clock = null;
       let stageSpot = null;
+      let stageTrimMat = null;
+      let stageRingMesh = null;
+      let stageGodRays = [];
+      let stageParticles = null;
       let threeReady = false;
       const avatarEntities = new Map();
+      const voiceAnalysers = new Map();
+      let localAudioCtx = null;
+      let localAnalyser = null;
+      let localAnalyserData = null;
       const festoonBulbs = [];
       const speakerCones = [];
       let ledCanvas = null;
@@ -967,7 +1003,7 @@
         const rotDiff = Math.abs(lp.rotY - lastSentRotY);
 
         if (!force && now - lastSentPosTime < 33) return;
-        if (!force && movedDist < 0.005 && rotDiff < 0.01 && now - lastSentPosTime < 700) return;
+        if (!force && movedDist < 0.005 && rotDiff < 0.01 && now - lastSentPosTime < 700 && !appState.micActive) return;
 
         lastSentPosTime = now;
         lastSentX = lp.x;
@@ -990,6 +1026,8 @@
           rotY: lp.rotY,
           isMoving: lp.isMoving,
           isSitting: lp.isSitting,
+          micActive: !!appState.micActive,
+          speakingLevel: lp.speakingLevel || 0,
           seq: localPosSeq
         };
 
@@ -1018,7 +1056,6 @@
           }
         }
 
-        // 1. Atualização de Posição em Tempo Real (30 Hz)
         if (pkt.type === 'pos') {
           if (!pkt.uid || pkt.uid === localUid) return;
           if (pkt.peerId) peerToUidMap.set(pkt.peerId, pkt.uid);
@@ -1043,6 +1080,8 @@
               targetRotY: pkt.rotY || Math.PI,
               isMoving: !!pkt.isMoving,
               isSitting: !!pkt.isSitting,
+              micActive: !!pkt.micActive,
+              speakingLevel: pkt.speakingLevel || 0,
               score: 9.5,
               placardRaised: false,
               lastSeq: pkt.seq || 0,
@@ -1062,6 +1101,8 @@
             target.targetRotY = pkt.rotY;
             target.isMoving = !!pkt.isMoving;
             target.isSitting = !!pkt.isSitting;
+            target.micActive = !!pkt.micActive;
+            target.speakingLevel = typeof pkt.speakingLevel === 'number' ? pkt.speakingLevel : 0;
             target.lastSeen = Date.now();
           }
 
@@ -1071,7 +1112,6 @@
           return;
         }
 
-        // 2. Pedido de Entrada (Recebido pelo Host GM)
         if (pkt.type === 'join' && appState.isHost) {
           const p = pkt.player;
           if (!p || !p.uid) return;
@@ -1098,7 +1138,6 @@
           return;
         }
 
-        // 3. Snapshot Completo da Sala (Recebido pelos Convidados)
         if (pkt.type === 'full_state' && !appState.isHost && pkt.room) {
           const incomingPlayers = pkt.room.players || {};
           const currentPlayers = appState.room.players || {};
@@ -1150,7 +1189,6 @@
           return;
         }
 
-        // 4. Snapshot Leve de Posições (20 Hz do Host)
         if (pkt.type === 'world_sync' && !appState.isHost && pkt.positions) {
           Object.keys(pkt.positions).forEach(uid => {
             if (uid === localUid) return;
@@ -1163,21 +1201,30 @@
               target.targetRotY = posInfo.rotY;
               target.isMoving = !!posInfo.isMoving;
               target.isSitting = !!posInfo.isSitting;
+              target.micActive = !!posInfo.micActive;
+              target.speakingLevel = typeof posInfo.speakingLevel === 'number' ? posInfo.speakingLevel : 0;
             }
           });
           return;
         }
 
-        // 5. Mensagem de Chat / Balão 3D
         if (pkt.type === 'chat') {
           appendChatMessage(pkt.uid, pkt.author, pkt.text, pkt.isSystem);
+          if (pkt.uid && !pkt.isSystem) {
+            const speakerObj = pkt.uid === localUid ? appState.localPlayer : appState.room.players[pkt.uid];
+            if (speakerObj) {
+              speakerObj.chatTalkUntil = performance.now() + Math.min(3800, Math.max(1500, (pkt.text || '').length * 55));
+            }
+          }
+          if (pkt.text && pkt.text.toUpperCase().includes('POESIA')) {
+            appState.stagePulseBoost = 1.0;
+          }
           if (appState.isHost) {
             broadcastFromHost(pkt, pkt.uid);
           }
           return;
         }
 
-        // 6. Atualização de Nota / Plaquinha de um Jurado
         if (pkt.type === 'judge_vote' && appState.isHost) {
           const p = appState.room.players[pkt.uid];
           if (p) {
@@ -1192,7 +1239,6 @@
           return;
         }
 
-        // 7. Inscrição no Chapeuzinho Virtual
         if (pkt.type === 'signup_poet' && appState.isHost) {
           if (appState.room.registrationsOpen) {
             gmAddPoet(pkt.uid, pkt.name);
@@ -1201,18 +1247,15 @@
           return;
         }
 
-        // 8. Pedido de Sincronização Manual
         if (pkt.type === 'request_sync' && appState.isHost) {
           hostBroadcastFullState();
         }
 
-        // 9. Saída voluntária de participante (Recebido pelo Host GM)
         if (pkt.type === 'leave' && appState.isHost && pkt.uid) {
           removePlayerFromRoom(pkt.uid, pkt.name);
           return;
         }
 
-        // 10. Encerramento oficial da sala pelo GM (Recebido pelos convidados)
         if (pkt.type === 'room_closed' && !appState.isHost) {
           leaveArenaSession(pkt.reason || 'A sala foi fechada pelo Slammaster (GM).', true);
           return;
@@ -1228,6 +1271,7 @@
           clientConnections.delete(targetUid);
         }
         delete appState.room.players[targetUid];
+        npcBrains.delete(targetUid);
         appState.room.juryUids = appState.room.juryUids.filter(id => id !== targetUid);
         if (appState.room.stagePoetUid === targetUid) {
           appState.room.stagePoetUid = null;
@@ -1332,6 +1376,8 @@
           avatarEntities.forEach(ent => scene.remove(ent.root));
         }
         avatarEntities.clear();
+        npcBrains.clear();
+        voiceAnalysers.clear();
         peerToUidMap.clear();
         seenMessageIds.clear();
 
@@ -1493,7 +1539,9 @@
                   z: p.z,
                   rotY: p.rotY,
                   isMoving: !!p.isMoving,
-                  isSitting: !!p.isSitting
+                  isSitting: !!p.isSitting,
+                  micActive: !!p.micActive,
+                  speakingLevel: p.speakingLevel || 0
                 };
               }
             });
@@ -1579,7 +1627,7 @@
       }
 
       // =========================================================================
-      // 5. SISTEMA DE CHAT DE VOZ DA PRAÇA, MUTE INDIVIDUAL & SILÊNCIO NO PALCO
+      // 5. SISTEMA DE CHAT DE VOZ DA PRAÇA, MUTE INDIVIDUAL & ANALISADOR DE VOZ
       // =========================================================================
       function canLocalSpeak() {
         const isMutedByGm = (appState.room.mutedUids || []).includes(localUid);
@@ -1625,7 +1673,24 @@
           });
           appState.localAudioStream = stream;
           appState.micActive = true;
+          appState.localPlayer.micActive = true;
+
+          // Inicializa analisador de áudio para animar a boca conforme o volume real da voz
+          try {
+            const AudioCtx = window.AudioContext || window.webkitAudioContext;
+            if (AudioCtx) {
+              if (!localAudioCtx) localAudioCtx = new AudioCtx();
+              if (localAudioCtx.state === 'suspended') await localAudioCtx.resume();
+              const srcNode = localAudioCtx.createMediaStreamSource(stream);
+              localAnalyser = localAudioCtx.createAnalyser();
+              localAnalyser.fftSize = 256;
+              localAnalyserData = new Uint8Array(localAnalyser.frequencyBinCount);
+              srcNode.connect(localAnalyser);
+            }
+          } catch (audioErr) {}
+
           callAllPeersWithLocalStream();
+          broadcastLocalPosition(true);
           refreshAllUIs();
           showToast('🎙️ Microfone ao vivo na praça!');
         } catch (err) {
@@ -1638,8 +1703,13 @@
           appState.localAudioStream.getTracks().forEach(t => t.stop());
           appState.localAudioStream = null;
         }
+        localAnalyser = null;
+        localAnalyserData = null;
         appState.micActive = false;
+        appState.localPlayer.micActive = false;
+        appState.localPlayer.speakingLevel = 0;
         activeAudioCalls.clear();
+        broadcastLocalPosition(true);
         refreshAllUIs();
       }
 
@@ -1677,7 +1747,50 @@
         }
         audioEl.srcObject = stream;
         audioEl.play().catch(() => {});
+
+        try {
+          const AudioCtx = window.AudioContext || window.webkitAudioContext;
+          if (AudioCtx && !voiceAnalysers.has(peerId)) {
+            const ctx = new AudioCtx();
+            const src = ctx.createMediaStreamSource(stream);
+            const analyser = ctx.createAnalyser();
+            analyser.fftSize = 256;
+            src.connect(analyser);
+            voiceAnalysers.set(peerId, { ctx, analyser, data: new Uint8Array(analyser.frequencyBinCount) });
+          }
+        } catch (err) {}
+
         enforceVoiceMuteStates();
+      }
+
+      function updateVoiceSpeakingLevels() {
+        if (appState.micActive) {
+          let level = 0;
+          if (localAnalyser && localAnalyserData) {
+            localAnalyser.getByteFrequencyData(localAnalyserData);
+            let sum = 0;
+            for (let i = 0; i < 24; i++) sum += localAnalyserData[i];
+            const avg = sum / 24;
+            level = Math.max(0, Math.min(1, (avg - 14) / 55));
+          }
+          appState.localPlayer.speakingLevel = level;
+        } else {
+          appState.localPlayer.speakingLevel = 0;
+        }
+
+        voiceAnalysers.forEach((entry, peerId) => {
+          const uid = peerToUidMap.get(peerId);
+          const p = uid ? appState.room.players[uid] : null;
+          if (!p) return;
+          if (entry.ctx.state === 'suspended') {
+            entry.ctx.resume().catch(() => {});
+          }
+          entry.analyser.getByteFrequencyData(entry.data);
+          let sum = 0;
+          for (let i = 0; i < 24; i++) sum += entry.data[i];
+          const avg = sum / 24;
+          p.remoteAudioLevel = Math.max(0, Math.min(1, (avg - 14) / 55));
+        });
       }
 
       function enforceVoiceMuteStates() {
@@ -1798,8 +1911,10 @@
             p.placardRaised = true;
             appState.localPlayer.placardRaised = true;
           } else if (uid.startsWith('bot-')) {
-            p.score = Math.round((8.6 + Math.random() * 1.4) * 10) / 10;
+            p.score = Math.round((8.7 + Math.random() * 1.3) * 10) / 10;
             p.placardRaised = true;
+            const brain = npcBrains.get(uid);
+            if (brain) brain.clapTimer = 2.6;
           } else {
             if (typeof p.score !== 'number') p.score = 9.5;
             p.placardRaised = true;
@@ -1914,6 +2029,7 @@
           const pl = appState.room.players[uid];
           pl.placardRaised = false;
           if (uid === nextPoet.uid) {
+            pl.isSitting = false;
             pl.x = 0;
             pl.y = 0.9;
             pl.z = -9.95;
@@ -2037,16 +2153,36 @@
         showToast('Pontuação salva e plaquinhas baixadas!');
       }
 
+      // =========================================================================
+      // 6B. MOTOR DE IA DOS NPCS (MOVIMENTAÇÃO, REAÇÃO AO PALCO & CONVERSAS)
+      // =========================================================================
+      const PLAZA_WAYPOINTS = [
+        { x: -3.8, z: -5.4, sit: false, faceStage: true },
+        { x: -1.8, z: -5.9, sit: false, faceStage: true },
+        { x: 1.8, z: -5.9, sit: false, faceStage: true },
+        { x: 3.9, z: -5.3, sit: false, faceStage: true },
+        { x: -2.4, z: -3.2, sit: false, faceStage: false },
+        { x: 2.5, z: -3.2, sit: false, faceStage: false },
+        { x: 0.0, z: -1.4, sit: false, faceStage: true },
+        { x: -10.8, z: -2.5, sit: true, faceStage: true },
+        { x: -6.5, z: 10.2, sit: true, faceStage: true },
+        { x: 6.5, z: 11.2, sit: true, faceStage: true },
+        { x: 6.2, z: 1.5, sit: false, faceStage: false }
+      ];
+
       function addTestBots() {
         if (!appState.isHost) return;
         const botPresets = [
-          { name: 'MC Dandara', skin: '#5C3621', outfit: '#D99B26', shirtPrint: 'encontrao', acc: 'afro', x: -3.8, z: -5.4, sit: false },
-          { name: 'Preto Rafa', skin: '#3D2315', outfit: '#C85A32', shirtPrint: 'caixote', acc: 'beanie', x: -1.6, z: -5.8, sit: false },
-          { name: 'Emaye', skin: '#8D5534', outfit: '#4E6E58', shirtPrint: 'mic', acc: 'turban', x: 1.6, z: -5.8, sit: false },
-          { name: 'Kauê', skin: '#B97A50', outfit: '#8C4A32', shirtPrint: 'encontrao', acc: 'none', x: 3.8, z: -5.4, sit: true }
+          { name: 'MC Dandara', skin: '#5C3621', outfit: '#D99B26', shirtPrint: 'encontrao', acc: 'afro', x: -3.8, z: -5.4, sit: false, vibe: 'firmeza e ancestralidade' },
+          { name: 'Preto Rafa', skin: '#3D2315', outfit: '#C85A32', shirtPrint: 'caixote', acc: 'beanie', x: -1.6, z: -5.8, sit: false, vibe: 'rima rápida e humor' },
+          { name: 'Emaye', skin: '#8D5534', outfit: '#4E6E58', shirtPrint: 'mic', acc: 'turban', x: 1.6, z: -5.8, sit: false, vibe: 'poesia lírica e olhar atento' },
+          { name: 'Kauê', skin: '#B97A50', outfit: '#8C4A32', shirtPrint: 'encontrao', acc: 'none', x: 3.8, z: -5.4, sit: true, vibe: 'entusiasmo pela cena independente' }
         ];
 
         botPresets.forEach((b, idx) => {
+          const existing = Object.values(appState.room.players).find(p => p.uid && p.uid.startsWith('bot-') && p.name === b.name);
+          if (existing) return;
+
           const bUid = 'bot-' + (idx + 1) + '-' + generateShortId(3);
           appState.room.players[bUid] = {
             uid: bUid,
@@ -2066,20 +2202,224 @@
             targetRotY: Math.PI,
             isMoving: false,
             isSitting: !!b.sit,
+            micActive: false,
+            speakingLevel: 0,
             score: 9.6,
             placardRaised: false,
             lastSeen: Date.now()
           };
+          npcBrains.set(bUid, {
+            vibe: b.vibe,
+            goalX: b.x,
+            goalZ: b.z,
+            wantSit: !!b.sit,
+            waitTimer: 2 + idx * 1.4,
+            clapTimer: 0
+          });
           gmAddPoet(bUid, b.name);
         });
 
+        nextNpcDialogTime = performance.now() + 3500;
         syncAvatarEntities();
         hostBroadcastFullState();
-        pushSystemChat('+4 Bots adicionados na praça para teste!');
+        pushSystemChat('🧠 +4 NPCs com IA entraram na praça e no chapeuzinho!');
+      }
+
+      function pickNewNpcGoal(uid, brain) {
+        const stagePoetUid = appState.room.stagePoetUid;
+        if (stagePoetUid && stagePoetUid !== uid) {
+          const arcIndex = (uid.charCodeAt(4) || 1) % 6;
+          const angle = -0.85 + arcIndex * 0.34 + (Math.random() - 0.5) * 0.14;
+          const radius = 3.2 + (arcIndex % 2) * 1.15;
+          brain.goalX = Math.sin(angle) * radius;
+          brain.goalZ = -6.8 + Math.cos(angle) * radius;
+          brain.wantSit = false;
+          brain.waitTimer = 6 + Math.random() * 5;
+          return;
+        }
+
+        const wp = PLAZA_WAYPOINTS[Math.floor(Math.random() * PLAZA_WAYPOINTS.length)];
+        brain.goalX = wp.x + (Math.random() - 0.5) * 0.9;
+        brain.goalZ = wp.z + (Math.random() - 0.5) * 0.9;
+        brain.wantSit = !!wp.sit && Math.random() < 0.65;
+        brain.waitTimer = 3.5 + Math.random() * 5.5;
+      }
+
+      function emitNpcSpeech(uid, text) {
+        const bot = appState.room.players[uid];
+        if (!bot || !text) return;
+        const clean = String(text).trim().slice(0, 62);
+        bot.chatTalkUntil = performance.now() + Math.min(3800, Math.max(1600, clean.length * 55));
+        sendChatMessageFromNpc(uid, bot.name, clean);
+      }
+
+      function sendChatMessageFromNpc(uid, author, text) {
+        const pkt = {
+          msgId: makeMsgId(),
+          type: 'chat',
+          uid,
+          author,
+          text,
+          isSystem: false
+        };
+        appendChatMessage(uid, author, text, false);
+        if (appState.isHost) {
+          broadcastFromHost(pkt);
+        }
+      }
+
+      function triggerNpcConversation(forced) {
+        if (!appState.isHost || !appState.npcAiEnabled || npcDialogBusy) return;
+        const bots = Object.values(appState.room.players).filter(p => p.uid && p.uid.startsWith('bot-'));
+        if (bots.length < 2) return;
+
+        if (!forced && appState.room.stagePoetUid && appState.room.timerRunning) {
+          nextNpcDialogTime = performance.now() + 5000;
+          return;
+        }
+
+        const shuffled = [...bots].sort(() => Math.random() - 0.5);
+        const speakerA = shuffled[0];
+        const speakerB = shuffled[1];
+        const stagePoet = appState.room.stagePoetUid ? appState.room.players[appState.room.stagePoetUid] : null;
+
+        const fallbackPairs = stagePoet
+          ? [
+              [`${speakerB.name}, olha a presença de ${stagePoet.name} no mic!`, `Arrepiou demais! Essa rima vai levantar placa 10!`],
+              [`Silêncio na roda que ${stagePoet.name} tá mandando ver!`, `Tô só absorvendo cada verso aqui da frente.`]
+            ]
+          : [
+              [`${speakerB.name}, já jogou teu nome no chapeuzinho hoje?`, `Já tá lá! Tô aquecendo os versos perto do caixote.`],
+              [`Esse pôr do sol na praça tá pedindo poesia pesada!`, `Demais, ${speakerA.name}! O Encontrão Poético tá lindo.`],
+              [`Quem você acha que leva o júri nessa rodada?`, `O nível hoje tá altíssimo, qualquer verso pode virar o jogo!`]
+            ];
+
+        const chosenPair = fallbackPairs[Math.floor(Math.random() * fallbackPairs.length)];
+        npcDialogBusy = true;
+        emitNpcSpeech(speakerA.uid, chosenPair[0]);
+
+        setTimeout(() => {
+          if (appState.hasEntered && appState.npcAiEnabled && appState.room.players[speakerB.uid]) {
+            emitNpcSpeech(speakerB.uid, chosenPair[1]);
+          }
+          npcDialogBusy = false;
+          nextNpcDialogTime = performance.now() + 14000 + Math.random() * 9000;
+        }, 2300);
+      }
+
+      function updateNpcAgents(dt) {
+        if (!appState.isHost || !appState.hasEntered) return;
+
+        const bots = Object.values(appState.room.players).filter(p => p.uid && p.uid.startsWith('bot-'));
+        if (bots.length === 0) return;
+
+        // Reação imediata quando um poeta sobe ou desce do palco
+        const currentStageUid = appState.room.stagePoetUid || null;
+        if (currentStageUid !== lastObservedStagePoetUid) {
+          const prevUid = lastObservedStagePoetUid;
+          lastObservedStagePoetUid = currentStageUid;
+
+          if (currentStageUid) {
+            const poetName = appState.room.players[currentStageUid]?.name || 'Poeta';
+            bots.forEach(bot => {
+              if (bot.uid === currentStageUid) return;
+              const brain = npcBrains.get(bot.uid) || { goalX: bot.x, goalZ: bot.z, wantSit: false, waitTimer: 2, clapTimer: 0 };
+              npcBrains.set(bot.uid, brain);
+              brain.clapTimer = 2.8;
+              pickNewNpcGoal(bot.uid, brain);
+            });
+            const cheerBot = bots.find(b => b.uid !== currentStageUid);
+            if (cheerBot && appState.npcAiEnabled) {
+              emitNpcSpeech(cheerBot.uid, `Salve, ${poetName}! Solta a voz!`);
+            }
+          } else if (prevUid) {
+            bots.forEach(bot => {
+              const brain = npcBrains.get(bot.uid);
+              if (brain) brain.clapTimer = 3.2;
+            });
+            const reactBot = bots[Math.floor(Math.random() * bots.length)];
+            if (reactBot && appState.npcAiEnabled) {
+              emitNpcSpeech(reactBot.uid, 'É POESIA! Que apresentação pesada!');
+            }
+          }
+        }
+
+        // Diálogo periódico espontâneo entre os NPCs
+        if (appState.npcAiEnabled && performance.now() > nextNpcDialogTime && !npcDialogBusy) {
+          triggerNpcConversation(false);
+        }
+
+        // Movimentação e comportamento individual de cada NPC
+        bots.forEach(bot => {
+          let brain = npcBrains.get(bot.uid);
+          if (!brain) {
+            brain = { goalX: bot.x, goalZ: bot.z, wantSit: false, waitTimer: 2, clapTimer: 0 };
+            npcBrains.set(bot.uid, brain);
+          }
+
+          if (brain.clapTimer > 0) {
+            brain.clapTimer = Math.max(0, brain.clapTimer - dt);
+          }
+
+          if (appState.room.stagePoetUid === bot.uid) {
+            bot.isMoving = false;
+            bot.isSitting = false;
+            bot.targetX = 0;
+            bot.targetY = 0.9;
+            bot.targetZ = -9.95;
+            bot.targetRotY = 0;
+            return;
+          }
+
+          if (!appState.npcAiEnabled) {
+            bot.isMoving = false;
+            return;
+          }
+
+          const dx = brain.goalX - bot.x;
+          const dz = brain.goalZ - bot.z;
+          const dist = Math.hypot(dx, dz);
+
+          if (dist > 0.25) {
+            bot.isSitting = false;
+            bot.isMoving = true;
+            const moveSpeed = 2.35;
+            const step = Math.min(dist, moveSpeed * dt);
+            const nx = bot.x + (dx / dist) * step;
+            const nz = bot.z + (dz / dist) * step;
+
+            // Evita colidir com o caixote central ou base do coreto
+            const hitCrate = Math.abs(nx) < 1.35 && nz > -4.35 && nz < -2.45;
+            const hitCoreto = Math.hypot(nx - 12.8, nz - 1.5) < 4.9;
+            if (hitCrate || hitCoreto) {
+              pickNewNpcGoal(bot.uid, brain);
+            } else {
+              bot.x = nx;
+              bot.z = nz;
+              bot.y = getSurfaceHeightAt(nx, nz, bot.y);
+              bot.targetX = nx;
+              bot.targetY = bot.y;
+              bot.targetZ = nz;
+              bot.targetRotY = Math.atan2(dx, dz);
+            }
+          } else {
+            bot.isMoving = false;
+            bot.isSitting = !!brain.wantSit;
+
+            if (appState.room.stagePoetUid) {
+              bot.targetRotY = Math.atan2(0 - bot.x, -9.95 - bot.z);
+            }
+
+            brain.waitTimer -= dt;
+            if (brain.waitTimer <= 0) {
+              pickNewNpcGoal(bot.uid, brain);
+            }
+          }
+        });
       }
 
       // =========================================================================
-      // 7. AÇÕES LOCAIS (PLAQUINHA, CHAT, NOTA, EFEITO SONORO SINTÉTICO)
+      // 7. AÇÕES LOCAIS (PLAQUINHA, CHAT, EFEITO SONORO SINTÉTICO)
       // =========================================================================
       function playSlamChime(type) {
         try {
@@ -2108,9 +2448,6 @@
         } catch (e) {}
       }
 
-      // =========================================================================
-      // 7. AÇÕES LOCAIS (PLAQUINHA, CHAT, NOTA)
-      // =========================================================================
       function toggleLocalPlacard() {
         if (!appState.room.juryUids.includes(localUid)) {
           showToast('Você não está escalado no júri desta rodada.');
@@ -2200,6 +2537,9 @@
           text: clean,
           isSystem
         };
+        if (!isSystem) {
+          appState.localPlayer.chatTalkUntil = performance.now() + Math.min(3600, Math.max(1500, clean.length * 55));
+        }
         appendChatMessage(localUid, author, clean, isSystem);
         if (appState.isHost) {
           broadcastFromHost(pkt);
@@ -2641,7 +2981,6 @@
           61
         );
 
-        // Coluna Esquerda: Cronômetro Oficial
         ctx.fillStyle = '#221611';
         roundRect(ctx, 36, 102, 415, 372, 20);
         ctx.fill();
@@ -2681,7 +3020,6 @@
         ctx.font = '800 17px Inter, sans-serif';
         ctx.fillText(statusLabel, 243, 385);
 
-        // Coluna Direita: Notas do Júri ou Ordem Sorteada
         ctx.fillStyle = '#221611';
         roundRect(ctx, 472, 102, 516, 372, 20);
         ctx.fill();
@@ -2789,7 +3127,7 @@
       }
 
       // =========================================================================
-      // 10. CONSTRUÇÃO DE AVATARES 3D & SINCRONIZAÇÃO DE ENTIDADES
+      // 10. CONSTRUÇÃO DE AVATARES 3D (INCLUINDO BOCA ARTICULADA PARA VOZ)
       // =========================================================================
       function createStylizedAvatar(cfg) {
         const root = new THREE.Group();
@@ -2855,10 +3193,23 @@
         const eyeMat = new THREE.MeshBasicMaterial({ color: '#140F0D' });
         const eyeGeo = new THREE.BoxGeometry(0.06, 0.07, 0.03);
         const leftEye = new THREE.Mesh(eyeGeo, eyeMat);
-        leftEye.position.set(-0.11, 0.03, 0.245);
+        leftEye.position.set(-0.11, 0.04, 0.245);
         const rightEye = new THREE.Mesh(eyeGeo, eyeMat);
-        rightEye.position.set(0.11, 0.03, 0.245);
+        rightEye.position.set(0.11, 0.04, 0.245);
         headGroup.add(leftEye, rightEye);
+
+        // Boca articulada para animação quando o microfone está aberto ou personagem fala
+        const mouthMat = new THREE.MeshBasicMaterial({ color: '#2B1210' });
+        const mouthMesh = new THREE.Mesh(new THREE.BoxGeometry(0.15, 0.065, 0.03), mouthMat);
+        mouthMesh.position.set(0, -0.105, 0.245);
+        mouthMesh.scale.set(1, 0.3, 1);
+
+        const mouthInnerMat = new THREE.MeshBasicMaterial({ color: '#D96B52' });
+        const mouthInnerMesh = new THREE.Mesh(new THREE.BoxGeometry(0.09, 0.032, 0.034), mouthInnerMat);
+        mouthInnerMesh.position.set(0, -0.01, 0.002);
+        mouthInnerMesh.visible = false;
+        mouthMesh.add(mouthInnerMesh);
+        headGroup.add(mouthMesh);
 
         const accessoryGroup = new THREE.Group();
         headGroup.add(accessoryGroup);
@@ -2908,7 +3259,6 @@
         rightHand.position.y = -0.6;
         rightArmGroup.add(rightArmMesh, rightHand);
 
-        // Plaquinha de Nota
         const placardGroup = new THREE.Group();
         placardGroup.position.set(0, -0.75, 0.08);
         const stick = new THREE.Mesh(
@@ -2959,6 +3309,8 @@
           rightArmGroup,
           torsoGroup,
           headGroup,
+          mouthMesh,
+          mouthInnerMesh,
           skinMat,
           outfitMat,
           frontShirtMat,
@@ -3069,7 +3421,7 @@
       }
 
       // =========================================================================
-      // 11. MONTAGEM DA CENA 3D (PRAÇA, CORETO, CAIXOTE ENCONTRÃO POÉTICO, PALCO)
+      // 11. MONTAGEM DA CENA 3D (PRAÇA, CORETO, CAIXOTE, PALCO & LUZES)
       // =========================================================================
       function initScene() {
         try {
@@ -3112,7 +3464,7 @@
           sunLight.shadow.camera.bottom = -d;
           scene.add(sunLight);
 
-          stageSpot = new THREE.SpotLight(0xffd275, 1.75, 28, Math.PI / 4, 0.5, 1);
+          stageSpot = new THREE.SpotLight(0xffd275, 1.85, 30, Math.PI / 4, 0.5, 1);
           stageSpot.position.set(0, 7.8, -6.2);
           stageSpot.target.position.set(0, 1.2, -10.2);
           scene.add(stageSpot, stageSpot.target);
@@ -3121,6 +3473,7 @@
           buildBandstandCoreto();
           buildPoeticCrate();
           buildSlamStage();
+          buildStageAtmosphereEffects();
           buildFestoonLights();
 
           threeReady = true;
@@ -3130,6 +3483,67 @@
           const notice = document.getElementById('webgl-fallback-notice');
           if (notice) notice.classList.remove('hidden');
         }
+      }
+
+      function buildStageAtmosphereEffects() {
+        stageGodRays = [];
+        const raySpecs = [
+          { x: -3.2, z: -7.5, rotZ: -0.22, color: 0xffb347 },
+          { x: 0.0, z: -6.8, rotZ: 0.0, color: 0xffd275 },
+          { x: 3.2, z: -7.5, rotZ: 0.22, color: 0xff8c42 }
+        ];
+
+        raySpecs.forEach(spec => {
+          const beamGeo = new THREE.ConeGeometry(2.1, 7.6, 18, 1, true);
+          const beamMat = new THREE.MeshBasicMaterial({
+            color: spec.color,
+            transparent: true,
+            opacity: 0.055,
+            side: THREE.DoubleSide,
+            depthWrite: false,
+            blending: THREE.AdditiveBlending
+          });
+          const beam = new THREE.Mesh(beamGeo, beamMat);
+          beam.position.set(spec.x, 4.4, spec.z - 1.4);
+          beam.rotation.x = -0.32;
+          beam.rotation.z = spec.rotZ;
+          scene.add(beam);
+          stageGodRays.push({ mesh: beam, mat: beamMat, baseX: spec.x });
+        });
+
+        // Anel luminoso no palco ao redor do microfone
+        const ringGeo = new THREE.RingGeometry(0.95, 1.25, 32);
+        const ringMat = new THREE.MeshBasicMaterial({
+          color: 0xd99b26,
+          side: THREE.DoubleSide,
+          transparent: true,
+          opacity: 0.55
+        });
+        stageRingMesh = new THREE.Mesh(ringGeo, ringMat);
+        stageRingMesh.rotation.x = -Math.PI / 2;
+        stageRingMesh.position.set(0, 0.915, -9.85);
+        scene.add(stageRingMesh);
+
+        // Partículas douradas flutuando sobre o palco
+        const pCount = 90;
+        const positions = new Float32Array(pCount * 3);
+        for (let i = 0; i < pCount; i++) {
+          positions[i * 3] = (Math.random() - 0.5) * 11.5;
+          positions[i * 3 + 1] = 1.1 + Math.random() * 4.8;
+          positions[i * 3 + 2] = -14.2 + Math.random() * 6.4;
+        }
+        const pGeo = new THREE.BufferGeometry();
+        pGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+        const pMat = new THREE.PointsMaterial({
+          color: 0xffd275,
+          size: 0.11,
+          transparent: true,
+          opacity: 0.65,
+          blending: THREE.AdditiveBlending,
+          depthWrite: false
+        });
+        stageParticles = new THREE.Points(pGeo, pMat);
+        scene.add(stageParticles);
       }
 
       function buildUrbanPlaza() {
@@ -3182,11 +3596,6 @@
         });
       }
 
-      /**
-       * Constrói o Coreto da Praça (inspirado na foto enviada):
-       * Base decagonal creme, núcleo fechado com janelas superiores, 10 colunas inferiores,
-       * escadaria lateral caminhável, balaustrada torneada, treliças internas e telhado de barro.
-       */
       function buildBandstandCoreto() {
         const coreto = new THREE.Group();
         coreto.position.set(12.8, 0, 1.5);
@@ -3204,13 +3613,11 @@
 
         const sides = 10;
 
-        // 1. Degrau/calçada decagonal de base
         const plinth = new THREE.Mesh(new THREE.CylinderGeometry(4.65, 4.78, 0.22, sides), creamMat);
         plinth.position.y = 0.11;
         plinth.receiveShadow = true;
         coreto.add(plinth);
 
-        // 2. Núcleo interno fechado do térreo + janelinhas superiores
         const innerCore = new THREE.Mesh(new THREE.CylinderGeometry(3.32, 3.38, 2.05, sides), warmPlasterMat);
         innerCore.position.y = 1.12;
         innerCore.castShadow = true;
@@ -3226,7 +3633,6 @@
           coreto.add(win);
         }
 
-        // 3. Mureta baixa perimetral e 10 colunas clássicas inferiores
         const lowerCurb = new THREE.Mesh(new THREE.CylinderGeometry(4.25, 4.3, 0.38, sides), creamMat);
         lowerCurb.position.y = 0.36;
         lowerCurb.receiveShadow = true;
@@ -3251,7 +3657,6 @@
           coreto.add(lowCol);
         }
 
-        // 4. Escadaria lateral externa (lado -X voltado para o centro da praça)
         const stairSteps = 7;
         for (let s = 0; s < stairSteps; s++) {
           const t = (s + 1) / stairSteps;
@@ -3271,14 +3676,12 @@
           coreto.add(railWall);
         });
 
-        // 5. Laje sacada superior (y = 2.15)
         const upperDeck = new THREE.Mesh(new THREE.CylinderGeometry(4.56, 4.56, 0.24, sides), creamMat);
         upperDeck.position.y = 2.12;
         upperDeck.castShadow = true;
         upperDeck.receiveShadow = true;
         coreto.add(upperDeck);
 
-        // 6. Balaustrada clássica superior + 10 colunas altas do pavilhão
         for (let i = 0; i < sides; i++) {
           const ang1 = (i / sides) * Math.PI * 2;
           const ang2 = ((i + 1) / sides) * Math.PI * 2;
@@ -3326,7 +3729,6 @@
           }
         }
 
-        // 7. Viga anelar e treliças internas expostas sob o telhado
         const ringBeam = new THREE.Mesh(new THREE.CylinderGeometry(4.36, 4.36, 0.26, sides), creamMat);
         ringBeam.position.y = 4.76;
         coreto.add(ringBeam);
@@ -3343,7 +3745,6 @@
           coreto.add(rafter);
         }
 
-        // 8. Telhado cônico decagonal em telhas de barro terracota
         const roofCone = new THREE.Mesh(new THREE.ConeGeometry(4.92, 1.65, sides, 1, true), roofMat);
         roofCone.position.y = 5.65;
         roofCone.castShadow = true;
@@ -3365,11 +3766,6 @@
         scene.add(coreto);
       }
 
-      /**
-       * Constrói o Caixote do Encontrão Poético fiel à foto enviada:
-       * Duas tábuas horizontais separadas por fresta ("ENCONTRÃO" em cima, "POÉTICO" embaixo),
-       * 4 pezinhos de madeira e 3 pilhas de livros/zines em 3D sobre a tampa.
-       */
       function buildPoeticCrate() {
         const crateGroup = new THREE.Group();
         crateGroup.position.set(0, 0, -3.4);
@@ -3394,7 +3790,6 @@
         const W = 1.96;
         const D = 1.16;
 
-        // 1. Quatro pezinhos verticais nos cantos (y: 0 -> 0.74)
         const legGeo = new THREE.BoxGeometry(0.11, 0.74, 0.11);
         [
           [-W / 2 + 0.06, -D / 2 + 0.06],
@@ -3409,7 +3804,6 @@
           crateGroup.add(leg);
         });
 
-        // 2. Tábuas frontais e traseiras com fresta central aberta
         const plankGeo = new THREE.BoxGeometry(W, 0.27, 0.05);
 
         const frontTopPlank = new THREE.Mesh(plankGeo, topPlankMat);
@@ -3434,7 +3828,6 @@
 
         crateGroup.add(frontTopPlank, frontBotPlank, backTopPlank, backBotPlank);
 
-        // 3. Ripas laterais esquerda e direita com fresta correspondente
         const sidePlankGeo = new THREE.BoxGeometry(0.05, 0.27, D - 0.04);
         [-W / 2, W / 2].forEach(sx => {
           const sTop = new THREE.Mesh(sidePlankGeo, paintedWoodMat);
@@ -3444,14 +3837,12 @@
           crateGroup.add(sTop, sBot);
         });
 
-        // 4. Tampa superior cinza-madeira desgastada (y = 0.75)
         const topLid = new THREE.Mesh(new THREE.BoxGeometry(W + 0.06, 0.07, D + 0.06), lidRimMat);
         topLid.position.set(0, 0.75, 0);
         topLid.castShadow = true;
         topLid.receiveShadow = true;
         crateGroup.add(topLid);
 
-        // 5. Três pilhas de livros e zines poéticos em cima do caixote
         const pagesMat = new THREE.MeshStandardMaterial({ color: '#CBC5D1', roughness: 0.7 });
         const coverBrownMat = new THREE.MeshStandardMaterial({ color: '#7D4234', roughness: 0.75 });
         const coverTerraMat = new THREE.MeshStandardMaterial({ color: '#A34737', roughness: 0.75 });
@@ -3469,11 +3860,9 @@
           crateGroup.add(book);
         }
 
-        // Pilha esquerda
         addBook(-0.62, 0.805, 0.04, 0.52, 0.032, 0.38, 0.08, 0, coverBrownMat);
         addBook(-0.65, 0.842, 0.02, 0.48, 0.026, 0.36, -0.06, 0.04, coverTerraMat);
 
-        // Pilha central alta (7 livros empilhados)
         const centerBooks = [
           { y: 0.812, w: 0.54, h: 0.048, d: 0.42, ry: 0.04, mat: coverBrownMat },
           { y: 0.858, w: 0.58, h: 0.036, d: 0.44, ry: -0.07, mat: coverTerraMat },
@@ -3485,7 +3874,6 @@
         ];
         centerBooks.forEach(b => addBook(-0.02, b.y, 0.02, b.w, b.h, b.d, b.ry, 0, b.mat));
 
-        // Pilha direita
         addBook(0.62, 0.806, 0.05, 0.52, 0.036, 0.38, -0.05, 0, coverBrownMat);
         addBook(0.60, 0.848, 0.04, 0.50, 0.024, 0.36, 0.07, -0.09, coverTerraMat);
 
@@ -3495,10 +3883,10 @@
       function buildSlamStage() {
         const woodTex = createWoodPlankTexture();
         const deckMat = new THREE.MeshStandardMaterial({ map: woodTex, roughness: 0.72 });
-        const trimMat = new THREE.MeshStandardMaterial({
+        stageTrimMat = new THREE.MeshStandardMaterial({
           color: '#D99B26',
           emissive: '#C85A32',
-          emissiveIntensity: 0.35,
+          emissiveIntensity: 0.45,
           roughness: 0.4
         });
         const darkMetal = new THREE.MeshStandardMaterial({ color: '#1B1512', metalness: 0.6, roughness: 0.4 });
@@ -3509,11 +3897,10 @@
         stageDeck.receiveShadow = true;
         scene.add(stageDeck);
 
-        const frontTrim = new THREE.Mesh(new THREE.BoxGeometry(12.1, 0.1, 0.12), trimMat);
+        const frontTrim = new THREE.Mesh(new THREE.BoxGeometry(12.1, 0.1, 0.12), stageTrimMat);
         frontTrim.position.set(0, 0.86, -8.0);
         scene.add(frontTrim);
 
-        // Rampa de Acesso à Esquerda do Palco
         const rampLength = Math.hypot(3.2, 0.9);
         const rampAngle = Math.atan2(0.9, 3.2);
         const rampMesh = new THREE.Mesh(new THREE.BoxGeometry(rampLength, 0.16, 4.0), deckMat);
@@ -3523,7 +3910,6 @@
         rampMesh.receiveShadow = true;
         scene.add(rampMesh);
 
-        // Pedestal e Microfone no Centro do Palco
         const micGroup = new THREE.Group();
         micGroup.position.set(0, 0.9, -9.3);
 
@@ -3549,7 +3935,6 @@
           scene.add(wedge);
         });
 
-        // Torres de Caixas de Som (PA)
         const coneMat = new THREE.MeshStandardMaterial({ color: '#332721', roughness: 0.6 });
         [-7.2, 7.2].forEach((sx, idx) => {
           const xPos = idx === 0 ? -7.2 : 7.3;
@@ -3579,7 +3964,6 @@
           scene.add(stack);
         });
 
-        // Telão LED Dinâmico atrás do Palco
         initLedScreenCanvas();
 
         const screenFrame = new THREE.Mesh(new THREE.BoxGeometry(9.6, 5.0, 0.35), darkMetal);
@@ -3665,41 +4049,35 @@
       }
 
       // =========================================================================
-      // 12. FÍSICA DE SUPERFÍCIES (PALCO, RAMPA, CAIXOTE E CORETO), PULO & SENTAR
+      // 12. FÍSICA DE SUPERFÍCIES, PULO, SENTAR E CÂMERA COM ANTICOLISÃO
       // =========================================================================
       function getSurfaceHeightAt(x, z, currentY = 0) {
         let h = 0;
 
-        // 1. Palco Principal: X [-5.9, 5.9], Z [-14.9, -8.1], Y = 0.9
         if (x >= -5.9 && x <= 5.9 && z >= -14.9 && z <= -8.1) {
           if (currentY >= 0.55) h = Math.max(h, 0.9);
         }
 
-        // 2. Rampa lateral esquerda do palco: X [-9.2, -5.9], Z [-13.4, -9.6]
         if (x >= -9.2 && x < -5.9 && z >= -13.4 && z <= -9.6) {
           const t = (x - (-9.2)) / 3.3;
           const rampH = Math.max(0, Math.min(0.9, t * 0.9));
           if (currentY >= rampH - 0.35) h = Math.max(h, rampH);
         }
 
-        // 3. Caixote do Encontrão Poético: centro (0, 0, -3.4), topo Y = 0.785
         if (Math.abs(x) <= 1.02 && z >= -4.02 && z <= -2.78) {
           if (currentY >= 0.45) h = Math.max(h, 0.785);
         }
 
-        // 4. Coreto Decagonal em (12.8, 0, 1.5)
         const dxC = x - 12.8;
         const dzC = z - 1.5;
         const distC = Math.hypot(dxC, dzC);
 
-        // Escadaria lateral externa do Coreto (world x de 7.05 a 9.05, z de -0.78 a 0.78)
         if (x >= 7.05 && x <= 9.05 && Math.abs(dzC) <= 0.78) {
           const tStair = Math.max(0, Math.min(1, (x - 7.05) / 1.9));
           const stairH = tStair * 2.24;
           if (currentY >= stairH - 0.45) h = Math.max(h, stairH);
         }
 
-        // Sacada superior do Coreto (Y = 2.24) ou calçada base (Y = 0.22)
         if (distC <= 4.45 && currentY >= 1.55) {
           h = Math.max(h, 2.24);
         } else if (distC <= 4.65 && distC >= 3.45 && currentY < 1.55) {
@@ -3729,6 +4107,18 @@
         lp.isSitting = !lp.isSitting;
         broadcastLocalPosition(true);
         showToast(lp.isSitting ? '🪑 Sentado na roda (ande ou pule para levantar)' : '🧍 De pé na praça');
+      }
+
+      function focusCameraOnStage() {
+        if (!appState.hasEntered) return;
+        const lp = appState.localPlayer;
+        const targetX = 0;
+        const targetZ = -9.95;
+        const dx = targetX - lp.x;
+        const dz = targetZ - lp.z;
+        appState.cameraYaw = Math.atan2(-dx, -dz);
+        appState.cameraPitch = appState.cameraMode === 'first' ? 0.04 : 0.28;
+        showToast('🎯 Olhar centralizado no palco');
       }
 
       function updateLocalMovementAndCamera(dt) {
@@ -3775,7 +4165,6 @@
           }
         }
 
-        // Gravidade e salto
         const groundY = getSurfaceHeightAt(lp.x, lp.z, lp.y);
         if (!lp.onGround || lp.vy > 0) {
           lp.vy -= 19.5 * dt;
@@ -3801,6 +4190,8 @@
           appState.room.players[localUid].rotY = lp.rotY;
           appState.room.players[localUid].isMoving = moving;
           appState.room.players[localUid].isSitting = lp.isSitting;
+          appState.room.players[localUid].micActive = appState.micActive;
+          appState.room.players[localUid].speakingLevel = lp.speakingLevel;
         }
 
         broadcastLocalPosition(false);
@@ -3823,9 +4214,9 @@
           const horizDist = appState.cameraDistance * Math.cos(appState.cameraPitch);
           const vertDist = appState.cameraDistance * Math.sin(appState.cameraPitch);
           const desiredCamPos = new THREE.Vector3(
-            targetFocus.x + Math.sin(appState.cameraYaw) * horizDist,
+            Math.max(-24.2, Math.min(24.2, targetFocus.x + Math.sin(appState.cameraYaw) * horizDist)),
             Math.max(0.85, targetFocus.y + vertDist),
-            targetFocus.z + Math.cos(appState.cameraYaw) * horizDist
+            Math.max(-23.5, Math.min(24.2, targetFocus.z + Math.cos(appState.cameraYaw) * horizDist))
           );
           camera.position.lerp(desiredCamPos, Math.min(1, dt * 11));
           camera.lookAt(targetFocus);
@@ -3833,7 +4224,7 @@
       }
 
       // =========================================================================
-      // 13. LOOP DE ANIMAÇÃO 3D, INTERPOLAÇÃO MULTIPLAYER E MINI-RADAR
+      // 13. LOOP DE ANIMAÇÃO 3D, EFEITOS DO PALCO, BOCA & MINI-RADAR
       // =========================================================================
       let lastSecondTick = -1;
 
@@ -3844,7 +4235,9 @@
         const dt = Math.min(clock.getDelta(), 0.05);
         const elapsed = clock.getElapsedTime();
 
-        // Cronômetro oficial
+        updateVoiceSpeakingLevels();
+        updateNpcAgents(dt);
+
         if (appState.room.timerRunning) {
           appState.room.elapsedSeconds += dt;
           const wholeSec = Math.floor(appState.room.elapsedSeconds);
@@ -3862,14 +4255,55 @@
         updateLocalMovementAndCamera(dt);
 
         if (threeReady && scene && renderer && camera) {
-          // Câmera panorâmica no Lobby
           if (!appState.hasEntered) {
             const angle = Math.sin(elapsed * 0.22) * 0.48;
             camera.position.set(Math.sin(angle) * 14.5, 5.4, Math.cos(angle) * 13.5);
             camera.lookAt(0, 2.3, -9.5);
           }
 
-          // Atualiza todos os avatares (Local + Remotos + Bots)
+          // Efeitos visuais dinâmicos no palco
+          if (appState.stagePulseBoost > 0) {
+            appState.stagePulseBoost = Math.max(0, appState.stagePulseBoost - dt * 0.8);
+          }
+          const hasPoet = !!appState.room.stagePoetUid;
+          const sec = appState.room.elapsedSeconds || 0;
+          const isOvertime = sec > 190;
+          const isWarning = sec > 180 && sec <= 190;
+
+          if (stageSpot) {
+            if (isOvertime) {
+              stageSpot.color.setHex(0xff595e);
+              stageSpot.intensity = 2.1 + Math.sin(elapsed * 12) * 0.45;
+            } else if (isWarning) {
+              stageSpot.color.setHex(0xffb703);
+              stageSpot.intensity = 2.0 + Math.sin(elapsed * 7) * 0.25;
+            } else if (hasPoet) {
+              stageSpot.color.setHex(0xff9f45);
+              stageSpot.intensity = 2.15 + appState.stagePulseBoost * 0.7;
+            } else {
+              stageSpot.color.setHex(0xffd275);
+              stageSpot.intensity = 1.65;
+            }
+          }
+
+          if (stageRingMesh) {
+            stageRingMesh.visible = hasPoet;
+            if (hasPoet) {
+              const s = 1 + Math.sin(elapsed * 3.5) * 0.06 + appState.stagePulseBoost * 0.14;
+              stageRingMesh.scale.set(s, s, 1);
+            }
+          }
+
+          stageGodRays.forEach((ray, i) => {
+            ray.mat.opacity = (hasPoet ? 0.085 : 0.042) + Math.sin(elapsed * 1.8 + i) * 0.015 + appState.stagePulseBoost * 0.05;
+          });
+
+          if (stageParticles) {
+            stageParticles.rotation.y = Math.sin(elapsed * 0.2) * 0.12;
+            stageParticles.position.y = Math.sin(elapsed * 0.9) * 0.14;
+          }
+
+          // Atualiza avatares (Posição, passos, palmas e animação da boca)
           const players = appState.room.players || {};
           avatarEntities.forEach((ent, uid) => {
             const isLocal = uid === localUid;
@@ -3906,10 +4340,39 @@
               ent.root.rotation.y = pData.rotY;
             }
 
-            // Animação de passos, sentado, gesticulação no palco ou respiração
             const isOnStage = appState.room.stagePoetUid === uid;
             const raised = isLocal ? appState.localPlayer.placardRaised : !!pData.placardRaised;
             const sitting = isLocal ? appState.localPlayer.isSitting : !!pData.isSitting;
+            const brain = npcBrains.get(uid);
+            const isClapping = brain && brain.clapTimer > 0 && !raised && !isOnStage;
+
+            // Animação da boca quando o microfone está aberto, falante remoto ativo, NPC falando ou poeta declamando
+            if (ent.mouthMesh) {
+              const nowMs = performance.now();
+              const isChatTalking = pData.chatTalkUntil && nowMs < pData.chatTalkUntil;
+              const isPoetReciting = isOnStage && appState.room.timerRunning;
+              const micOn = isLocal ? appState.micActive : !!pData.micActive;
+              const voiceAmp = isLocal
+                ? (appState.localPlayer.speakingLevel || 0)
+                : Math.max(pData.speakingLevel || 0, pData.remoteAudioLevel || 0);
+
+              let mouthOpen = 0;
+              if (micOn) {
+                const syllable = 0.28 + Math.abs(Math.sin(elapsed * 18 + uid.length)) * 0.35;
+                mouthOpen = voiceAmp > 0.06 ? Math.min(1, 0.25 + voiceAmp * 1.15) : syllable * 0.45;
+              } else if (isChatTalking || isPoetReciting) {
+                mouthOpen = 0.22 + Math.abs(Math.sin(elapsed * 16 + uid.charCodeAt(uid.length - 1))) * 0.72;
+              }
+
+              ent.mouthMesh.scale.set(
+                1 + mouthOpen * 0.22,
+                0.28 + mouthOpen * 1.65,
+                1
+              );
+              if (ent.mouthInnerMesh) {
+                ent.mouthInnerMesh.visible = mouthOpen > 0.18;
+              }
+            }
 
             if (sitting && !pData.isMoving) {
               ent.torsoGroup.position.y = 0.78;
@@ -3921,6 +4384,7 @@
               ent.leftLegGroup.rotation.x = -Math.PI / 2;
               ent.rightLegGroup.rotation.x = -Math.PI / 2;
               ent.leftArmGroup.rotation.x = -0.35;
+              ent.leftArmGroup.rotation.z = 0;
               if (!raised) ent.rightArmGroup.rotation.x = -0.35;
             } else {
               ent.headGroup.position.y = 1.84;
@@ -3934,26 +4398,36 @@
                 ent.leftLegGroup.rotation.x = stride;
                 ent.rightLegGroup.rotation.x = -stride;
                 ent.leftArmGroup.rotation.x = -stride * 0.6;
+                ent.leftArmGroup.rotation.z = 0;
                 if (!raised) ent.rightArmGroup.rotation.x = stride * 0.6;
                 ent.torsoGroup.position.y = 1.18 + Math.abs(Math.cos(elapsed * 11)) * 0.04;
+              } else if (isClapping) {
+                const clap = Math.sin(elapsed * 16) * 0.22;
+                ent.leftLegGroup.rotation.x *= 0.82;
+                ent.rightLegGroup.rotation.x *= 0.82;
+                ent.leftArmGroup.rotation.x = -1.15;
+                ent.leftArmGroup.rotation.z = -0.38 + clap;
+                ent.rightArmGroup.rotation.x = -1.15;
+                ent.rightArmGroup.rotation.z = 0.38 - clap;
               } else if (isOnStage) {
                 const beat = elapsed * 4.4;
                 ent.leftLegGroup.rotation.x *= 0.82;
                 ent.rightLegGroup.rotation.x *= 0.82;
                 ent.torsoGroup.rotation.z = Math.sin(beat * 0.5) * 0.08;
                 ent.leftArmGroup.rotation.x = -0.65 + Math.cos(beat * 1.2) * 0.35;
+                ent.leftArmGroup.rotation.z = 0;
                 if (!raised) ent.rightArmGroup.rotation.x = -0.85 + Math.sin(beat * 1.4) * 0.45;
               } else {
                 ent.leftLegGroup.rotation.x *= 0.82;
                 ent.rightLegGroup.rotation.x *= 0.82;
                 ent.torsoGroup.rotation.z = 0;
                 ent.leftArmGroup.rotation.x = Math.sin(elapsed * 2.2) * 0.05;
+                ent.leftArmGroup.rotation.z = 0;
                 if (!raised) ent.rightArmGroup.rotation.x = -Math.sin(elapsed * 2.2) * 0.05;
                 ent.torsoGroup.position.y = 1.18 + Math.sin(elapsed * 2.5) * 0.015;
               }
             }
 
-            // Animação suave da plaquinha do júri
             const targetP = raised ? 1 : 0;
             ent.placardProgress += (targetP - ent.placardProgress) * Math.min(1, dt * 10);
             if (ent.placardProgress > 0.02) {
@@ -3962,11 +4436,10 @@
               ent.rightArmGroup.rotation.z = -ent.placardProgress * 0.14;
             } else {
               ent.placardGroup.visible = false;
-              ent.rightArmGroup.rotation.z = 0;
+              if (!isClapping) ent.rightArmGroup.rotation.z = 0;
             }
           });
 
-          // Pulsação das caixas de som e varal de luzes
           const bassPulse = 1 + Math.abs(Math.sin(elapsed * 6.5)) * 0.08;
           speakerCones.forEach(c => c.scale.set(bassPulse, 1, bassPulse));
           festoonBulbs.forEach(b => b.mesh.scale.setScalar(0.94 + Math.sin(elapsed * 3.0 + b.phase) * 0.08));
@@ -3990,7 +4463,6 @@
         ctx.fillStyle = '#1B110C';
         ctx.fillRect(0, 0, W, H);
 
-        // Grade sutil da praça
         ctx.strokeStyle = 'rgba(244, 236, 225, 0.08)';
         ctx.lineWidth = 1;
         ctx.strokeRect(2, 2, W - 4, H - 4);
@@ -3998,15 +4470,12 @@
         const toRadarX = (wx) => ((wx + 24) / 48) * W;
         const toRadarY = (wz) => ((wz + 24) / 48) * H;
 
-        // Palco no topo
         ctx.fillStyle = 'rgba(200, 90, 50, 0.45)';
         ctx.fillRect(toRadarX(-6), toRadarY(-15), (12 / 48) * W, (7 / 48) * H);
 
-        // Caixote do Encontrão Poético no centro
         ctx.fillStyle = '#D99B26';
         ctx.fillRect(toRadarX(-1.1), toRadarY(-4.1), 4.5, 3);
 
-        // Coreto decagonal à direita
         ctx.strokeStyle = 'rgba(237, 227, 208, 0.55)';
         ctx.lineWidth = 1.5;
         ctx.beginPath();
@@ -4023,7 +4492,6 @@
           const ry = Math.max(4, Math.min(H - 4, toRadarY(p.z || 0)));
 
           if (uid === localUid) {
-            // Indicador de direção da câmera local
             ctx.strokeStyle = 'rgba(217, 155, 38, 0.8)';
             ctx.lineWidth = 1.5;
             ctx.beginPath();
@@ -4053,10 +4521,12 @@
         const formatted = formatSlamTime(appState.room.elapsedSeconds || 0);
         const hudTimer = document.getElementById('hud-timer');
         const gmTimerBig = document.getElementById('gm-stage-timer-big');
+        const gmQuickTimer = document.getElementById('gm-quick-timer');
         const badge = document.getElementById('hud-timer-badge');
 
         if (hudTimer) hudTimer.textContent = formatted;
         if (gmTimerBig) gmTimerBig.textContent = formatted;
+        if (gmQuickTimer) gmQuickTimer.textContent = formatted;
 
         const sec = appState.room.elapsedSeconds || 0;
         if (sec > 190) {
@@ -4146,11 +4616,14 @@
 
         const stagePoetObj = appState.room.stagePoetUid ? players[appState.room.stagePoetUid] : null;
         const hudStageEl = document.getElementById('hud-stage-poet');
+        const gmQuickStageEl = document.getElementById('gm-quick-stage-name');
         if (hudStageEl) {
           hudStageEl.textContent = stagePoetObj ? `Palco: ${stagePoetObj.name}` : 'Palco Livre';
         }
+        if (gmQuickStageEl) {
+          gmQuickStageEl.textContent = stagePoetObj ? stagePoetObj.name : 'Livre';
+        }
 
-        // Botão de Microfone no HUD Superior
         const micBtn = document.getElementById('btn-stage-mic');
         const micDot = document.getElementById('mic-dot');
         const micLabel = document.getElementById('mic-label');
@@ -4171,7 +4644,6 @@
           }
         }
 
-        // Alterna painéis da gaveta conforme o papel atual (GM, Jurado ou Plateia/Poeta)
         const gmPanel = document.getElementById('gm-panel');
         const jurorPanel = document.getElementById('juror-panel');
         const audiencePanel = document.getElementById('audience-panel');
@@ -4216,28 +4688,24 @@
           }
         }
 
-        // Controles exclusivos do GM
         if (appState.isHost) {
           const voiceBtn1 = document.getElementById('btn-gm-plaza-voice');
           const voiceBtn2 = document.getElementById('btn-gm-plaza-voice-alt');
-          const voiceDesc = document.getElementById('gm-voice-status-desc');
+          const aiBtn = document.getElementById('btn-toggle-npc-ai');
           const isOpen = !!appState.room.plazaVoiceOpen;
 
           if (voiceBtn1) {
             voiceBtn1.innerHTML = isOpen
-              ? '<span>🔇 Fechar Voz da Praça</span>'
-              : '<span>🔊 Abrir Voz da Praça</span>';
+              ? '<span>🔇 Fechar Voz</span>'
+              : '<span>🔊 Voz Praça</span>';
           }
           if (voiceBtn2) {
             voiceBtn2.textContent = isOpen ? '🔇 Fechar Praça' : '🔊 Abrir Praça';
           }
-          if (voiceDesc) {
-            voiceDesc.textContent = appState.room.stagePoetUid
-              ? 'Silenciada (Poeta no palco)'
-              : (isOpen ? 'Aberta para todos' : 'Fechada (só GM fala)');
+          if (aiBtn) {
+            aiBtn.innerHTML = appState.npcAiEnabled ? '<span>🧠 IA: ON</span>' : '<span>🧠 IA: OFF</span>';
           }
 
-          // Mesa do Júri (Slots e Lista de Participantes com Mute Individual)
           const juryCountEl = document.getElementById('gm-jury-count');
           const jurySlotsEl = document.getElementById('gm-jury-slots');
           const playersListEl = document.getElementById('gm-players-list');
@@ -4248,157 +4716,170 @@
 
           if (jurySlotsEl) {
             if (appState.room.juryUids.length === 0) {
-              jurySlotsEl.innerHTML = '<span class="text-[11px] text-[#F4ECE1]/50">Selecione até 5 pessoas abaixo.</span>';
+              jurySlotsEl.innerHTML = '<span class="text-[11px] text-[#F4ECE1]/50">Selecione até 5 pessoas na aba "4. Praça" ou clique em Sortear 5.</span>';
             } else {
-              jurySlotsEl.innerHTML = appState.room.juryUids.map((uid, i) => {
+              jurySlotsEl.innerHTML = appState.room.juryUids.map(uid => {
                 const pl = uid === localUid ? appState.localPlayer : players[uid];
-                return `
-                  <span class="inline-flex items-center gap-1 px-2 py-1 rounded-lg bg-[#D99B26]/20 border border-[#D99B26]/50 text-[11px] font-bold text-[#F4ECE1]">
-                    <strong class="text-[#D99B26]">#${i + 1}</strong> ${escapeHtml(pl?.name || uid)}
-                    <button type="button" data-gm-remove-jury="${uid}" class="ml-1 text-[#F4ECE1]/60 hover:text-red-300 font-extrabold">×</button>
-                  </span>
-                `;
+                const nm = pl ? pl.name : uid;
+                return `<span class="px-2 py-0.5 rounded-lg bg-[#D99B26] text-[#2B1D16] text-[11px] font-extrabold">${escapeHtml(nm)}</span>`;
               }).join('');
-
-              jurySlotsEl.querySelectorAll('[data-gm-remove-jury]').forEach(btn => {
-                btn.addEventListener('click', () => gmTogglePlayerInJury(btn.dataset.gmRemoveJury));
-              });
             }
           }
 
           if (playersListEl) {
-            const mutedList = appState.room.mutedUids || [];
+            const mutedUids = appState.room.mutedUids || [];
             playersListEl.innerHTML = Array.from(allUids).map(uid => {
               const pl = uid === localUid ? appState.localPlayer : players[uid];
               if (!pl) return '';
               const inJury = appState.room.juryUids.includes(uid);
               const onStage = appState.room.stagePoetUid === uid;
-              const isMuted = mutedList.includes(uid);
+              const isMuted = mutedUids.includes(uid);
+              const tag = onStage ? ' • PALCO' : (uid === localUid ? ' (GM)' : '');
               const muteBtnHtml = uid === localUid
                 ? ''
-                : `<button type="button" data-gm-mute="${uid}" class="px-2 py-1 rounded-lg text-[11px] font-extrabold transition shrink-0 ${
-                    isMuted
-                      ? 'bg-red-700/80 text-white'
-                      : 'bg-[#2B1D16] hover:bg-[#C85A32] border border-[#F4ECE1]/20 text-[#F4ECE1]'
-                  }" title="${isMuted ? 'Desmutar voz' : 'Mutar voz'}">${isMuted ? '🔇' : '🔊'}</button>`;
+                : `<button type="button" data-gm-mute-uid="${escapeHtml(uid)}" class="min-h-[34px] px-2 py-1 rounded-lg text-[10px] font-extrabold transition ${isMuted ? 'bg-red-600 text-white' : 'bg-[#2B1D16] text-[#F4ECE1]/80 border border-[#F4ECE1]/20'}">${isMuted ? '🔇' : '🔊'}</button>`;
+              const kickBtnHtml = uid === localUid
+                ? ''
+                : `<button type="button" data-gm-kick-uid="${escapeHtml(uid)}" class="min-h-[34px] px-2 py-1 rounded-lg text-[10px] font-extrabold bg-[#2B1D16] hover:bg-red-700 text-red-300 hover:text-white border border-red-500/30 transition" title="Remover participante">✕</button>`;
 
               return `
-                <div class="flex items-center justify-between gap-1.5 px-2.5 py-1.5 rounded-xl bg-[#2B1D16]/75 border border-[#F4ECE1]/10">
-                  <span class="text-xs font-bold text-[#F4ECE1] truncate">${escapeHtml(pl.name)} ${uid === localUid ? '(Você)' : ''}</span>
+                <div class="flex items-center justify-between gap-1.5 px-2.5 py-1.5 rounded-xl bg-[#2B1D16]/85 border border-[#F4ECE1]/10">
+                  <span class="text-xs font-semibold truncate">${escapeHtml(pl.name)}<span class="text-[10px] text-[#D99B26]">${tag}</span></span>
                   <div class="flex items-center gap-1 shrink-0">
                     ${muteBtnHtml}
-                    <button type="button" data-gm-stage="${uid}" class="px-2 py-1 rounded-lg text-[11px] font-extrabold transition ${
-                      onStage ? 'bg-[#D99B26] text-[#2B1D16]' : 'bg-[#2B1D16] hover:bg-[#C85A32] border border-[#F4ECE1]/20 text-[#F4ECE1]'
-                    }" title="Colocar ou tirar do palco">
-                      ${onStage ? '🎤 No Palco' : '🎤'}
+                    <button type="button" data-gm-stage-uid="${escapeHtml(uid)}" class="min-h-[34px] px-2 py-1 rounded-lg text-[10px] font-extrabold transition ${onStage ? 'bg-[#C85A32] text-[#F4ECE1]' : 'bg-[#2B1D16] text-[#F4ECE1]/80 border border-[#F4ECE1]/20'}">
+                      ${onStage ? '⬇️ Descer' : '🎤 Palco'}
                     </button>
-                    <button type="button" data-gm-jury="${uid}" class="px-2 py-1 rounded-lg text-[11px] font-extrabold transition ${
-                      inJury ? 'bg-[#C85A32] text-[#F4ECE1]' : 'bg-[#4E6E58] hover:bg-[#5c8168] text-[#F4ECE1]'
-                    }">
-                      ${inJury ? 'No Júri' : '+ Júri'}
+                    <button type="button" data-gm-jury-uid="${escapeHtml(uid)}" class="min-h-[34px] px-2 py-1 rounded-lg text-[10px] font-extrabold transition ${inJury ? 'bg-[#D99B26] text-[#2B1D16]' : 'bg-[#4E6E58] text-[#F4ECE1]'}">
+                      ${inJury ? '✓ Júri' : '+ Júri'}
                     </button>
+                    ${kickBtnHtml}
                   </div>
                 </div>
               `;
             }).join('');
-
-            playersListEl.querySelectorAll('[data-gm-stage]').forEach(btn => {
-              btn.addEventListener('click', () => gmToggleStagePlayer(btn.dataset.gmStage));
-            });
-            playersListEl.querySelectorAll('[data-gm-jury]').forEach(btn => {
-              btn.addEventListener('click', () => gmTogglePlayerInJury(btn.dataset.gmJury));
-            });
-            playersListEl.querySelectorAll('[data-gm-mute]').forEach(btn => {
-              btn.addEventListener('click', () => gmToggleMutePlayer(btn.dataset.gmMute));
-            });
           }
 
-          // Chave de Inscrições & Lista de Poetas
           const regBtn = document.getElementById('btn-gm-toggle-reg');
           const regKnob = document.getElementById('gm-reg-knob');
           const regHint = document.getElementById('gm-reg-hint');
           if (regBtn && regKnob && regHint) {
             const open = !!appState.room.registrationsOpen;
             regBtn.setAttribute('aria-checked', String(open));
-            regBtn.classList.toggle('bg-[#4E6E58]', open);
-            regBtn.classList.toggle('bg-[#2B1D16]', !open);
+            regBtn.className = open
+              ? 'w-12 h-7 rounded-full bg-[#4E6E58] border border-[#D99B26] p-1 transition flex items-center'
+              : 'w-12 h-7 rounded-full bg-[#2B1D16] border border-[#F4ECE1]/25 p-1 transition flex items-center';
             regKnob.style.transform = open ? 'translateX(20px)' : 'translateX(0px)';
-            regHint.textContent = open ? 'Aberto para toda a praça' : 'Fechadas no momento';
+            regHint.textContent = open ? 'Abertas para a plateia!' : 'Fechadas no momento';
           }
 
+          const pool = appState.room.registeredPoets || [];
           const poolCountEl = document.getElementById('gm-poet-pool-count');
           const poolListEl = document.getElementById('gm-poet-pool-list');
-          const pool = appState.room.registeredPoets || [];
           if (poolCountEl) poolCountEl.textContent = String(pool.length);
           if (poolListEl) {
-            poolListEl.innerHTML = pool.length === 0
-              ? '<span class="text-[11px] text-[#F4ECE1]/50">Abra inscrições ou adicione poetas.</span>'
-              : pool.map(p => `<span class="px-2 py-1 rounded-lg bg-[#2B1D16] border border-[#F4ECE1]/15 text-[11px] font-semibold text-[#F4ECE1]">${escapeHtml(p.name)}</span>`).join('');
+            if (pool.length === 0) {
+              poolListEl.innerHTML = '<span class="text-[11px] text-[#F4ECE1]/50">Abra inscrições ou adicione poetas.</span>';
+            } else {
+              poolListEl.innerHTML = pool.map(p =>
+                `<span class="px-2 py-0.5 rounded-lg bg-[#8C4A32] text-[#F4ECE1] text-[11px] font-bold">${escapeHtml(p.name)}</span>`
+              ).join('');
+            }
           }
 
-          const drawnListEl = document.getElementById('gm-drawn-order-list');
-          const drawnProgEl = document.getElementById('gm-drawn-progress');
           const order = appState.room.drawnOrder || [];
-          if (drawnProgEl) drawnProgEl.textContent = `${Math.max(0, appState.room.currentPoetIndex + 1)}/${order.length}`;
-          if (drawnListEl) {
-            drawnListEl.innerHTML = order.length === 0
-              ? '<li class="text-[11px] text-[#F4ECE1]/50">Aguardando sorteio...</li>'
-              : order.map((p, idx) => {
-                  const curr = idx === appState.room.currentPoetIndex;
-                  const cls = curr
-                    ? 'bg-[#C85A32] text-[#F4ECE1] font-extrabold'
-                    : (p.done ? 'bg-[#2B1D16]/50 text-[#F4ECE1]/45 line-through' : 'bg-[#2B1D16] text-[#F4ECE1]');
-                  return `<li class="flex items-center justify-between px-2.5 py-1.5 rounded-lg ${cls}"><span><strong class="font-mono-led mr-1.5">${idx + 1}º</strong>${escapeHtml(p.name)}</span><span class="text-[10px] uppercase">${curr ? 'Palco' : (p.done ? 'OK' : 'Fila')}</span></li>`;
-                }).join('');
+          const progEl = document.getElementById('gm-drawn-progress');
+          const orderEl = document.getElementById('gm-drawn-order-list');
+          if (progEl) {
+            progEl.textContent = `${Math.max(0, appState.room.currentPoetIndex + 1)}/${order.length}`;
           }
-
-          const clearStageBtn = document.getElementById('btn-gm-clear-stage');
-          if (clearStageBtn) {
-            clearStageBtn.classList.toggle('hidden', !appState.room.stagePoetUid);
+          if (orderEl) {
+            if (order.length === 0) {
+              orderEl.innerHTML = '<li class="text-[11px] text-[#F4ECE1]/50">Aguardando sorteio...</li>';
+            } else {
+              orderEl.innerHTML = order.map((item, idx) => {
+                const isCurr = idx === appState.room.currentPoetIndex;
+                return `<li class="flex items-center justify-between px-2.5 py-1 rounded-lg ${isCurr ? 'bg-[#C85A32] font-extrabold text-[#F4ECE1]' : 'bg-[#2B1D16]/75 text-[#F4ECE1]/85'}">
+                  <span>${idx + 1}º ${escapeHtml(item.name)}</span>
+                  <span class="text-[10px]">${isCurr ? 'NO PALCO' : (item.done ? '✓' : 'Fila')}</span>
+                </li>`;
+              }).join('');
+            }
           }
 
           const lbEl = document.getElementById('gm-leaderboard-list');
-          const lb = appState.room.leaderboard || [];
           if (lbEl) {
-            lbEl.innerHTML = lb.length === 0
-              ? '<p class="text-[11px] text-[#F4ECE1]/50">Nenhuma pontuação salva ainda.</p>'
-              : lb.map((item, i) => `<div class="flex items-center justify-between px-2.5 py-1.5 rounded-lg bg-[#2B1D16]/80"><span class="font-bold text-[#F4ECE1]"><strong class="text-[#D99B26] mr-1">${i + 1}º</strong>${escapeHtml(item.name)}</span><span class="font-mono-led font-extrabold text-[#D99B26]">${item.score.toFixed(1)}</span></div>`).join('');
+            const lb = appState.room.leaderboard || [];
+            if (lb.length === 0) {
+              lbEl.innerHTML = '<p class="text-[11px] text-[#F4ECE1]/50">Nenhuma pontuação salva ainda.</p>';
+            } else {
+              lbEl.innerHTML = lb.map((item, idx) =>
+                `<div class="flex items-center justify-between px-2.5 py-1.5 rounded-lg bg-[#2B1D16]/85 border border-[#F4ECE1]/10">
+                  <span class="font-bold text-[#F4ECE1]">${idx + 1}º ${escapeHtml(item.name)}</span>
+                  <span class="font-mono-led font-extrabold text-[#D99B26]">${Number(item.score).toFixed(1)}</span>
+                </div>`
+              ).join('');
+            }
+          }
+
+          const clearStageBtn = document.getElementById('btn-gm-clear-stage');
+          const clearStagePalcoBtn = document.getElementById('btn-gm-clear-stage-palco');
+          if (clearStageBtn) {
+            clearStageBtn.classList.toggle('hidden', !appState.room.stagePoetUid);
+          }
+          if (clearStagePalcoBtn) {
+            clearStagePalcoBtn.classList.toggle('hidden', !appState.room.stagePoetUid);
           }
         }
 
-        // Botões rápidos mobile
-        const quickPlacardBtn = document.getElementById('btn-quick-placard');
-        const quickPlacardLabel = document.getElementById('quick-placard-label');
-        const quickSignupBtn = document.getElementById('btn-quick-signup');
-        const audBadge = document.getElementById('audience-reg-badge');
-        const audSignupBtn = document.getElementById('btn-audience-signup');
-        const alreadySignedUp = (appState.room.registeredPoets || []).some(p => p.uid === localUid);
+        const btnJurorPlacard = document.getElementById('btn-juror-toggle-placard');
+        if (btnJurorPlacard) {
+          btnJurorPlacard.textContent = appState.localPlayer.placardRaised
+            ? `Baixar Plaquinha (${appState.localPlayer.score.toFixed(1)})`
+            : `Levantar Plaquinha (${appState.localPlayer.score.toFixed(1)})`;
+        }
 
-        if (quickPlacardBtn && quickPlacardLabel) {
+        const audBadge = document.getElementById('audience-reg-badge');
+        const audBtn = document.getElementById('btn-audience-signup');
+        const alreadyInPool = (appState.room.registeredPoets || []).some(p => p.uid === localUid);
+        if (audBadge && audBtn) {
+          if (alreadyInPool) {
+            audBadge.textContent = 'Inscrito';
+            audBadge.className = 'text-[10px] px-2 py-0.5 rounded bg-[#4E6E58] text-[#F4ECE1] font-bold';
+            audBtn.disabled = true;
+            audBtn.textContent = '✓ Nome no Chapeuzinho';
+            audBtn.className = 'w-full min-h-[44px] py-2.5 px-3 rounded-xl font-extrabold text-xs uppercase tracking-wide bg-[#4E6E58]/40 text-[#F4ECE1] border border-[#4E6E58] cursor-default';
+          } else if (appState.room.registrationsOpen) {
+            audBadge.textContent = 'Aberto';
+            audBadge.className = 'text-[10px] px-2 py-0.5 rounded bg-[#D99B26] text-[#2B1D16] font-extrabold';
+            audBtn.disabled = false;
+            audBtn.textContent = '🎩 Quero Rimar! (Colocar Nome)';
+            audBtn.className = 'w-full min-h-[44px] py-2.5 px-3 rounded-xl font-extrabold text-xs uppercase tracking-wide bg-gradient-to-r from-[#D99B26] to-[#C85A32] text-[#2B1D16] hover:brightness-110 transition shadow cursor-pointer';
+          } else {
+            audBadge.textContent = 'Fechado';
+            audBadge.className = 'text-[10px] px-2 py-0.5 rounded bg-[#2B1D16] text-[#F4ECE1]/60';
+            audBtn.disabled = true;
+            audBtn.textContent = 'Quero Rimar (Aguardando GM)';
+            audBtn.className = 'w-full min-h-[44px] py-2.5 px-3 rounded-xl font-extrabold text-xs uppercase tracking-wide bg-[#2B1D16] text-[#F4ECE1]/45 border border-[#F4ECE1]/10 cursor-not-allowed';
+          }
+        }
+
+        const quickPlacardBtn = document.getElementById('btn-quick-placard');
+        const quickPlacardLbl = document.getElementById('quick-placard-label');
+        const quickSignupBtn = document.getElementById('btn-quick-signup');
+
+        if (quickPlacardBtn && quickPlacardLbl) {
           quickPlacardBtn.classList.toggle('hidden', !isJudge);
-          quickPlacardLabel.textContent = appState.localPlayer.placardRaised
+          quickPlacardBtn.classList.toggle('flex', isJudge);
+          quickPlacardLbl.textContent = appState.localPlayer.placardRaised
             ? `Baixar (${appState.localPlayer.score.toFixed(1)})`
             : `Plaquinha (${appState.localPlayer.score.toFixed(1)})`;
         }
 
         if (quickSignupBtn) {
-          quickSignupBtn.classList.toggle('hidden', !appState.room.registrationsOpen || alreadySignedUp);
-        }
-
-        if (audBadge && audSignupBtn) {
-          if (!appState.room.registrationsOpen) {
-            audBadge.textContent = 'Fechado';
-            audSignupBtn.disabled = true;
-            audSignupBtn.textContent = 'Quero Rimar (Aguardando GM)';
-          } else if (alreadySignedUp) {
-            audBadge.textContent = 'Inscrito';
-            audSignupBtn.disabled = true;
-            audSignupBtn.textContent = '✅ Nome no Chapeuzinho!';
-          } else {
-            audBadge.textContent = 'Aberto';
-            audSignupBtn.disabled = false;
-            audSignupBtn.textContent = '🎩 Quero Rimar (Inscrever-se)';
-          }
+          const showQuickSignup = !appState.isHost && !!appState.room.registrationsOpen && !alreadyInPool;
+          quickSignupBtn.classList.toggle('hidden', !showQuickSignup);
+          quickSignupBtn.classList.toggle('flex', showQuickSignup);
         }
 
         updateTimerDisplays();
@@ -4406,137 +4887,151 @@
       }
 
       // =========================================================================
-      // 15. ENTRADA NA ARENA & LISTENERS DE UI, TECLADO, MOUSE E TOUCH
+      // 15. ENTRADA NO LOBBY & VINCULAÇÃO DE EVENTOS (TOUCH + MOUSE + TECLADO)
       // =========================================================================
       function enterArena(asHost) {
+        const roomInput = document.getElementById('lobby-room-code-input');
         const nameInput = document.getElementById('lobby-name-input');
-        const codeInput = document.getElementById('lobby-room-code-input');
-
+        appState.roomCode = sanitizeRoomCode(roomInput ? roomInput.value : 'SLAM-2026');
         appState.isHost = !!asHost;
-        appState.roomCode = sanitizeRoomCode(codeInput ? codeInput.value : 'SLAM-2026');
+
         const typedName = nameInput ? nameInput.value.trim() : '';
         appState.localPlayer.name = typedName || (asHost ? 'Slammaster' : 'Poeta ' + generateShortId(3));
 
         if (asHost) {
-          appState.localPlayer.x = 0;
+          appState.localPlayer.x = -3.4;
           appState.localPlayer.y = 0;
-          appState.localPlayer.z = 3.4;
+          appState.localPlayer.z = -5.6;
           appState.localPlayer.rotY = Math.PI;
           appState.cameraYaw = 0;
-          appState.cameraPitch = 0.04;
-          appState.cameraMode = 'first';
+          appState.cameraPitch = 0.06;
+          applyCameraMode('first');
         } else {
-          const offsetAngle = (Math.random() - 0.5) * 1.6;
-          appState.localPlayer.x = Math.sin(offsetAngle) * 4.5;
+          const angle = (Math.random() - 0.5) * 1.6;
+          appState.localPlayer.x = Math.sin(angle) * 4.5;
           appState.localPlayer.y = 0;
-          appState.localPlayer.z = 2.0 + Math.cos(offsetAngle) * 2.5;
+          appState.localPlayer.z = 2.8 + Math.random() * 2.4;
           appState.localPlayer.rotY = Math.PI;
           appState.cameraYaw = 0;
-          appState.cameraPitch = 0.34;
-          appState.cameraMode = 'third';
+          appState.cameraPitch = 0.28;
+          applyCameraMode('third');
         }
 
-        appState.room.players[localUid] = { ...appState.localPlayer, lastSeen: Date.now() };
         appState.hasEntered = true;
 
-        // Oculta Lobby e revela HUDs da Arena
-        document.getElementById('lobby-overlay').classList.add('hidden');
+        const lobbyEl = document.getElementById('lobby-overlay');
         const topHud = document.getElementById('top-hud');
-        topHud.classList.remove('hidden');
-        topHud.classList.add('flex');
+        const radarBox = document.getElementById('mini-radar-box');
+        const joyEl = document.getElementById('virtual-joystick');
+        const quickActionsEl = document.getElementById('mobile-quick-actions');
 
-        document.getElementById('mini-radar-box').classList.remove('hidden');
-        document.getElementById('virtual-joystick').classList.remove('hidden');
-        const quickActions = document.getElementById('mobile-quick-actions');
-        quickActions.classList.remove('hidden');
-        quickActions.classList.add('flex');
+        if (lobbyEl) lobbyEl.classList.add('hidden');
+        if (topHud) {
+          topHud.classList.remove('hidden');
+          topHud.classList.add('flex');
+        }
+        if (radarBox) radarBox.classList.remove('hidden');
+        if (joyEl) joyEl.classList.remove('hidden');
+        if (quickActionsEl) {
+          quickActionsEl.classList.remove('hidden');
+          quickActionsEl.classList.add('flex');
+        }
 
-        applyCameraMode(appState.cameraMode);
+        setDrawerOpen(false);
+        initNetworking();
         syncAvatarEntities();
         refreshAllUIs();
-        initNetworking();
 
-        showToast(asHost ? 'Sala criada! Você é o Slammaster (GM).' : 'Conectando à praça do Slam...');
+        appendChatMessage(
+          'system',
+          'Slammaster',
+          asHost
+            ? `Sala ${appState.roomCode} criada! Toque em "☰ Painel" para abrir inscrições, adicionar bots IA ou sortear poetas.`
+            : `Bem-vindo à sala ${appState.roomCode}! Use o joystick ou WASD para andar e subir no palco ou no Coreto.`,
+          true
+        );
       }
 
-      function setupUIListeners() {
-        // Customização do Lobby
+      function bindEvents() {
         document.querySelectorAll('.lobby-skin-btn').forEach(btn => {
           btn.addEventListener('click', () => {
+            appState.localPlayer.skin = btn.dataset.lobbySkin;
             document.querySelectorAll('.lobby-skin-btn').forEach(b => b.classList.remove('border-[#D99B26]', 'scale-110'));
             btn.classList.add('border-[#D99B26]', 'scale-110');
-            appState.localPlayer.skin = btn.dataset.lobbySkin;
           });
         });
 
         document.querySelectorAll('.lobby-outfit-btn').forEach(btn => {
           btn.addEventListener('click', () => {
+            appState.localPlayer.outfit = btn.dataset.lobbyOutfit;
             document.querySelectorAll('.lobby-outfit-btn').forEach(b => b.classList.remove('border-[#F4ECE1]'));
             btn.classList.add('border-[#F4ECE1]');
-            appState.localPlayer.outfit = btn.dataset.lobbyOutfit;
           });
         });
 
         document.querySelectorAll('.lobby-print-btn').forEach(btn => {
           btn.addEventListener('click', () => {
+            appState.localPlayer.shirtPrint = btn.dataset.lobbyPrint;
             document.querySelectorAll('.lobby-print-btn').forEach(b => {
               b.classList.remove('bg-[#C85A32]', 'border-[#D99B26]', 'text-[#F4ECE1]');
               b.classList.add('bg-[#2B1D16]', 'border-[#F4ECE1]/15', 'text-[#F4ECE1]/80');
             });
-            btn.classList.add('bg-[#C85A32]', 'border-[#D99B26]', 'text-[#F4ECE1]');
             btn.classList.remove('bg-[#2B1D16]', 'border-[#F4ECE1]/15', 'text-[#F4ECE1]/80');
-            appState.localPlayer.shirtPrint = btn.dataset.lobbyPrint;
+            btn.classList.add('bg-[#C85A32]', 'border-[#D99B26]', 'text-[#F4ECE1]');
           });
         });
 
         document.querySelectorAll('.lobby-acc-btn').forEach(btn => {
           btn.addEventListener('click', () => {
+            appState.localPlayer.acc = btn.dataset.lobbyAcc;
             document.querySelectorAll('.lobby-acc-btn').forEach(b => {
               b.classList.remove('bg-[#C85A32]', 'border-[#D99B26]', 'text-[#F4ECE1]');
               b.classList.add('bg-[#2B1D16]', 'border-[#F4ECE1]/15', 'text-[#F4ECE1]/80');
             });
-            btn.classList.add('bg-[#C85A32]', 'border-[#D99B26]', 'text-[#F4ECE1]');
             btn.classList.remove('bg-[#2B1D16]', 'border-[#F4ECE1]/15', 'text-[#F4ECE1]/80');
-            appState.localPlayer.acc = btn.dataset.lobbyAcc;
+            btn.classList.add('bg-[#C85A32]', 'border-[#D99B26]', 'text-[#F4ECE1]');
           });
         });
 
-        const getInviteUrl = () => {
-          const code = sanitizeRoomCode(document.getElementById('lobby-room-code-input')?.value || appState.roomCode);
-          return `${window.location.origin}${window.location.pathname}?sala=${code}`;
-        };
+        document.getElementById('btn-copy-invite')?.addEventListener('click', () => {
+          const code = sanitizeRoomCode(document.getElementById('lobby-room-code-input')?.value);
+          const url = `${window.location.origin}${window.location.pathname}?sala=${encodeURIComponent(code)}`;
+          copyTextSafe(url);
+        });
 
-        document.getElementById('btn-copy-invite')?.addEventListener('click', () => copyTextSafe(getInviteUrl()));
-        document.getElementById('btn-drawer-copy-invite')?.addEventListener('click', () => copyTextSafe(getInviteUrl()));
+        document.getElementById('btn-drawer-copy-invite')?.addEventListener('click', () => {
+          const url = `${window.location.origin}${window.location.pathname}?sala=${encodeURIComponent(appState.roomCode)}`;
+          copyTextSafe(url);
+        });
 
         document.getElementById('btn-create-gm')?.addEventListener('click', () => enterArena(true));
         document.getElementById('btn-join-audience')?.addEventListener('click', () => enterArena(false));
 
-        // Controles do HUD Superior e Gaveta
-        document.getElementById('btn-stage-mic')?.addEventListener('click', toggleLocalMicrophone);
+        document.getElementById('btn-toggle-drawer')?.addEventListener('click', () => setDrawerOpen(!appState.drawerOpen));
+        document.getElementById('btn-close-drawer-top')?.addEventListener('click', () => setDrawerOpen(false));
+        document.getElementById('btn-close-drawer-bottom')?.addEventListener('click', () => setDrawerOpen(false));
+
         document.getElementById('btn-toggle-camera')?.addEventListener('click', () => {
-          applyCameraMode(appState.cameraMode === 'first' ? 'third' : 'first');
+          const next = appState.cameraMode === 'first' ? 'third' : 'first';
+          applyCameraMode(next);
+          showToast(next === 'first' ? 'Visão em 1ª Pessoa' : 'Visão em 3ª Pessoa');
         });
+
+        document.getElementById('btn-stage-mic')?.addEventListener('click', toggleLocalMicrophone);
+
         document.getElementById('btn-force-sync')?.addEventListener('click', () => {
           broadcastLocalPosition(true);
           if (appState.isHost) {
             hostBroadcastFullState();
           } else {
-            sendToHost({ msgId: makeMsgId(), type: 'request_sync' });
+            sendToHost({ type: 'request_sync', uid: localUid });
           }
           showToast('Posições e sala sincronizadas!');
         });
 
-        document.getElementById('btn-toggle-drawer')?.addEventListener('click', () => {
-          setDrawerOpen(!appState.drawerOpen);
-        });
-        document.getElementById('btn-close-drawer-top')?.addEventListener('click', () => setDrawerOpen(false));
-        document.getElementById('btn-close-drawer-bottom')?.addEventListener('click', () => setDrawerOpen(false));
-
-        // Abas do GM
         document.querySelectorAll('.gm-tab-btn').forEach(btn => {
           btn.addEventListener('click', () => {
-            const target = btn.dataset.gmTab;
+            const tab = btn.dataset.gmTab;
             document.querySelectorAll('.gm-tab-btn').forEach(b => {
               b.classList.remove('bg-[#C85A32]', 'text-[#F4ECE1]', 'font-extrabold');
               b.classList.add('text-[#F4ECE1]/70', 'font-bold');
@@ -4544,40 +5039,82 @@
             btn.classList.add('bg-[#C85A32]', 'text-[#F4ECE1]', 'font-extrabold');
             btn.classList.remove('text-[#F4ECE1]/70', 'font-bold');
 
-            document.querySelectorAll('.gm-tab-content').forEach(sec => {
-              sec.classList.toggle('hidden', sec.id !== `gm-tab-${target}`);
-            });
+            document.querySelectorAll('.gm-tab-content').forEach(sec => sec.classList.add('hidden'));
+            document.getElementById(`gm-tab-${tab}`)?.classList.remove('hidden');
           });
         });
 
-        // Botões Exclusivos do GM
         document.getElementById('btn-gm-plaza-voice')?.addEventListener('click', gmTogglePlazaVoice);
         document.getElementById('btn-gm-plaza-voice-alt')?.addEventListener('click', gmTogglePlazaVoice);
         document.getElementById('btn-add-bots')?.addEventListener('click', addTestBots);
+
+        document.getElementById('btn-toggle-npc-ai')?.addEventListener('click', () => {
+          appState.npcAiEnabled = !appState.npcAiEnabled;
+          refreshAllUIs();
+          showToast(appState.npcAiEnabled ? '🧠 Motor de IA dos NPCs ativado' : '⏸️ Motor de IA dos NPCs pausado');
+        });
+
+        document.getElementById('btn-npc-chat-now')?.addEventListener('click', () => {
+          const bots = Object.values(appState.room.players).filter(p => p.uid && p.uid.startsWith('bot-'));
+          if (bots.length < 2) {
+            addTestBots();
+          }
+          triggerNpcConversation(true);
+        });
+
         document.getElementById('btn-gm-random-jury')?.addEventListener('click', gmDrawRandomJury);
         document.getElementById('btn-gm-request-scores')?.addEventListener('click', gmRequestOrRevealScores);
-        document.getElementById('btn-gm-self-placard')?.addEventListener('click', toggleLocalPlacard);
+        document.getElementById('btn-gm-request-scores-quick')?.addEventListener('click', gmRequestOrRevealScores);
+
+        document.getElementById('gm-players-list')?.addEventListener('click', (e) => {
+          const kickBtn = e.target.closest('[data-gm-kick-uid]');
+          if (kickBtn) {
+            removePlayerFromRoom(kickBtn.dataset.gmKickUid);
+            return;
+          }
+          const stageBtn = e.target.closest('[data-gm-stage-uid]');
+          if (stageBtn) {
+            gmToggleStagePlayer(stageBtn.dataset.gmStageUid);
+            return;
+          }
+          const muteBtn = e.target.closest('[data-gm-mute-uid]');
+          if (muteBtn) {
+            gmToggleMutePlayer(muteBtn.dataset.gmMuteUid);
+            return;
+          }
+          const juryBtn = e.target.closest('[data-gm-jury-uid]');
+          if (juryBtn) {
+            gmTogglePlayerInJury(juryBtn.dataset.gmJuryUid);
+          }
+        });
+
         document.getElementById('gm-self-score-slider')?.addEventListener('input', (e) => updateLocalScore(e.target.value));
+        document.getElementById('btn-gm-self-placard')?.addEventListener('click', toggleLocalPlacard);
 
         document.getElementById('btn-gm-toggle-reg')?.addEventListener('click', gmToggleRegistrations);
         document.getElementById('gm-add-poet-form')?.addEventListener('submit', (e) => {
           e.preventDefault();
           const inp = document.getElementById('gm-manual-poet-input');
-          if (inp && inp.value.trim()) {
-            gmAddPoet(null, inp.value);
-            inp.value = '';
-          }
+          if (!inp || !inp.value.trim()) return;
+          gmAddPoet(null, inp.value.trim());
+          inp.value = '';
         });
+
         document.getElementById('btn-gm-clear-poets')?.addEventListener('click', () => {
           if (!appState.isHost) return;
           appState.room.registeredPoets = [];
           appState.room.drawnOrder = [];
           appState.room.currentPoetIndex = -1;
+          appState.room.stagePoetUid = null;
+          enforceVoiceMuteStates();
           hostBroadcastFullState();
         });
+
         document.getElementById('btn-gm-draw-order')?.addEventListener('click', gmDrawPoetsOrder);
         document.getElementById('btn-gm-call-next-poet')?.addEventListener('click', gmCallNextPoet);
+        document.getElementById('btn-gm-call-next-poet-quick')?.addEventListener('click', gmCallNextPoet);
         document.getElementById('btn-gm-clear-stage')?.addEventListener('click', gmClearStagePoet);
+        document.getElementById('btn-gm-clear-stage-palco')?.addEventListener('click', gmClearStagePoet);
 
         document.getElementById('btn-gm-timer-start')?.addEventListener('click', () => {
           if (!appState.isHost) return;
@@ -4591,6 +5128,7 @@
         });
         document.getElementById('btn-gm-timer-reset')?.addEventListener('click', () => {
           if (!appState.isHost) return;
+          appState.room.timerRunning = false;
           appState.room.elapsedSeconds = 0;
           lastSecondTick = -1;
           hostBroadcastFullState();
@@ -4598,17 +5136,19 @@
         document.getElementById('btn-gm-end-round')?.addEventListener('click', gmEndRoundAndSave);
         document.getElementById('btn-gm-close-room')?.addEventListener('click', handleGmCloseRoomClick);
 
-        // Jurado & Plateia / Poeta
-        document.getElementById('btn-juror-leave-slam')?.addEventListener('click', () => leaveArenaSession('Você saiu do Slam.'));
-        document.getElementById('btn-poet-leave-slam')?.addEventListener('click', () => leaveArenaSession('Você saiu do Slam.'));
         document.getElementById('juror-score-slider')?.addEventListener('input', (e) => updateLocalScore(e.target.value));
         document.querySelectorAll('.juror-quick-btn').forEach(btn => {
           btn.addEventListener('click', () => updateLocalScore(btn.dataset.jurorQuick));
         });
         document.getElementById('btn-juror-toggle-placard')?.addEventListener('click', toggleLocalPlacard);
-        document.getElementById('btn-quick-placard')?.addEventListener('click', toggleLocalPlacard);
+        document.getElementById('btn-juror-leave-slam')?.addEventListener('click', () => {
+          leaveArenaSession('Você saiu da mesa do júri e da sala.');
+        });
+        document.getElementById('btn-poet-leave-slam')?.addEventListener('click', () => {
+          leaveArenaSession('Você saiu da sala do Slam.');
+        });
 
-        const triggerSignup = () => {
+        function handleSignupClick() {
           if (!appState.room.registrationsOpen) return;
           if (appState.isHost) {
             gmAddPoet(localUid, appState.localPlayer.name);
@@ -4621,250 +5161,257 @@
             });
           }
           showToast('🎩 Nome enviado para o chapeuzinho!');
-        };
-        document.getElementById('btn-audience-signup')?.addEventListener('click', triggerSignup);
-        document.getElementById('btn-quick-signup')?.addEventListener('click', triggerSignup);
+        }
+        document.getElementById('btn-audience-signup')?.addEventListener('click', handleSignupClick);
+        document.getElementById('btn-quick-signup')?.addEventListener('click', handleSignupClick);
 
-        document.querySelectorAll('.quick-chat-btn').forEach(btn => {
-          btn.addEventListener('click', () => {
-            playSlamChime('cheer');
-            sendChatMessage(btn.dataset.quickChat, false);
-          });
-        });
-        document.getElementById('btn-quick-cheer')?.addEventListener('click', () => {
-          playSlamChime('cheer');
-          sendChatMessage('É POESIA! 🔥', false);
-        });
+        document.getElementById('btn-quick-placard')?.addEventListener('click', toggleLocalPlacard);
+        document.getElementById('btn-quick-cheer')?.addEventListener('click', () => sendChatMessage('É POESIA! 🔥'));
+        document.getElementById('btn-quick-focus-stage')?.addEventListener('click', focusCameraOnStage);
         document.getElementById('btn-quick-jump')?.addEventListener('click', triggerLocalJump);
         document.getElementById('btn-quick-sit')?.addEventListener('click', toggleLocalSit);
 
+        document.querySelectorAll('.quick-chat-btn').forEach(btn => {
+          btn.addEventListener('click', () => sendChatMessage(btn.dataset.quickChat));
+        });
+
         [
-          { form: 'gm-chat-form', input: 'gm-chat-input', sys: true },
-          { form: 'juror-chat-form', input: 'juror-chat-input', sys: false },
-          { form: 'audience-chat-form', input: 'audience-chat-input', sys: false }
-        ].forEach(cfg => {
-          document.getElementById(cfg.form)?.addEventListener('submit', (e) => {
+          ['gm-chat-form', 'gm-chat-input'],
+          ['juror-chat-form', 'juror-chat-input'],
+          ['audience-chat-form', 'audience-chat-input']
+        ].forEach(([formId, inputId]) => {
+          document.getElementById(formId)?.addEventListener('submit', (e) => {
             e.preventDefault();
-            const inp = document.getElementById(cfg.input);
-            if (inp && inp.value.trim()) {
-              sendChatMessage(inp.value, cfg.sys);
-              inp.value = '';
-            }
+            const inp = document.getElementById(inputId);
+            if (!inp || !inp.value.trim()) return;
+            sendChatMessage(inp.value.trim());
+            inp.value = '';
           });
         });
 
-        // Joystick Analógico Virtual (Touch)
-        const joyEl = document.getElementById('virtual-joystick');
-        const knobEl = document.getElementById('joystick-knob');
-        let activeJoyTouchId = null;
+        window.addEventListener('keydown', (e) => {
+          if (document.activeElement && document.activeElement.tagName === 'INPUT') return;
+          if (!appState.hasEntered) return;
 
-        function updateJoystickFromTouch(touch) {
-          const rect = joyEl.getBoundingClientRect();
+          if (e.code === 'KeyW' || e.code === 'ArrowUp') appState.keys.up = true;
+          if (e.code === 'KeyS' || e.code === 'ArrowDown') appState.keys.down = true;
+          if (e.code === 'KeyA' || e.code === 'ArrowLeft') appState.keys.left = true;
+          if (e.code === 'KeyD' || e.code === 'ArrowRight') appState.keys.right = true;
+          if (e.code === 'Space') {
+            e.preventDefault();
+            triggerLocalJump();
+          }
+          if (e.code === 'KeyC') {
+            e.preventDefault();
+            toggleLocalSit();
+          }
+          if (e.code === 'KeyF') {
+            e.preventDefault();
+            focusCameraOnStage();
+          }
+          if (e.code === 'KeyV') {
+            applyCameraMode(appState.cameraMode === 'first' ? 'third' : 'first');
+          }
+          if (e.code === 'KeyP' || e.code === 'KeyE') {
+            e.preventDefault();
+            toggleLocalPlacard();
+          }
+          if (e.code === 'Escape' && appState.drawerOpen) {
+            setDrawerOpen(false);
+          }
+        });
+
+        window.addEventListener('keyup', (e) => {
+          if (e.code === 'KeyW' || e.code === 'ArrowUp') appState.keys.up = false;
+          if (e.code === 'KeyS' || e.code === 'ArrowDown') appState.keys.down = false;
+          if (e.code === 'KeyA' || e.code === 'ArrowLeft') appState.keys.left = false;
+          if (e.code === 'KeyD' || e.code === 'ArrowRight') appState.keys.right = false;
+        });
+
+        // Arraste de câmera (mouse e toque) + Pinch-to-Zoom em 3ª pessoa
+        const container = document.getElementById('canvas-container');
+        let isDraggingLook = false;
+        let lookTouchId = null;
+        let lastLookX = 0;
+        let lastLookY = 0;
+        let pinchStartDist = 0;
+        let pinchStartCamDist = appState.cameraDistance;
+
+        if (container) {
+          container.addEventListener('mousedown', (e) => {
+            if (!appState.hasEntered || appState.drawerOpen) return;
+            isDraggingLook = true;
+            lastLookX = e.clientX;
+            lastLookY = e.clientY;
+          });
+
+          window.addEventListener('mousemove', (e) => {
+            if (!isDraggingLook) return;
+            const dx = e.clientX - lastLookX;
+            const dy = e.clientY - lastLookY;
+            lastLookX = e.clientX;
+            lastLookY = e.clientY;
+            appState.cameraYaw -= dx * 0.0055;
+            const minPitch = appState.cameraMode === 'first' ? -0.65 : 0.06;
+            const maxPitch = appState.cameraMode === 'first' ? 0.65 : 0.85;
+            appState.cameraPitch = Math.max(minPitch, Math.min(maxPitch, appState.cameraPitch + dy * 0.0045));
+          });
+
+          window.addEventListener('mouseup', () => {
+            isDraggingLook = false;
+          });
+
+          container.addEventListener('wheel', (e) => {
+            if (!appState.hasEntered || appState.cameraMode !== 'third') return;
+            appState.cameraDistance = Math.max(4.5, Math.min(18, appState.cameraDistance + e.deltaY * 0.006));
+          }, { passive: true });
+
+          container.addEventListener('touchstart', (e) => {
+            if (!appState.hasEntered || appState.drawerOpen) return;
+            if (e.touches.length === 2) {
+              isDraggingLook = false;
+              lookTouchId = null;
+              pinchStartDist = Math.hypot(
+                e.touches[0].clientX - e.touches[1].clientX,
+                e.touches[0].clientY - e.touches[1].clientY
+              );
+              pinchStartCamDist = appState.cameraDistance;
+              return;
+            }
+            if (e.touches.length === 1) {
+              const t = e.touches[0];
+              isDraggingLook = true;
+              lookTouchId = t.identifier;
+              lastLookX = t.clientX;
+              lastLookY = t.clientY;
+            }
+          }, { passive: true });
+
+          container.addEventListener('touchmove', (e) => {
+            if (e.touches.length === 2 && pinchStartDist > 0 && appState.cameraMode === 'third') {
+              const curDist = Math.hypot(
+                e.touches[0].clientX - e.touches[1].clientX,
+                e.touches[0].clientY - e.touches[1].clientY
+              );
+              const scale = pinchStartDist / Math.max(20, curDist);
+              appState.cameraDistance = Math.max(4.5, Math.min(18, pinchStartCamDist * scale));
+              return;
+            }
+            if (!isDraggingLook) return;
+            for (let i = 0; i < e.changedTouches.length; i++) {
+              const t = e.changedTouches[i];
+              if (t.identifier === lookTouchId) {
+                const dx = t.clientX - lastLookX;
+                const dy = t.clientY - lastLookY;
+                lastLookX = t.clientX;
+                lastLookY = t.clientY;
+                appState.cameraYaw -= dx * 0.0065;
+                const minPitch = appState.cameraMode === 'first' ? -0.65 : 0.06;
+                const maxPitch = appState.cameraMode === 'first' ? 0.65 : 0.85;
+                appState.cameraPitch = Math.max(minPitch, Math.min(maxPitch, appState.cameraPitch + dy * 0.005));
+              }
+            }
+          }, { passive: true });
+
+          container.addEventListener('touchend', (e) => {
+            if (e.touches.length < 2) pinchStartDist = 0;
+            for (let i = 0; i < e.changedTouches.length; i++) {
+              if (e.changedTouches[i].identifier === lookTouchId) {
+                isDraggingLook = false;
+                lookTouchId = null;
+              }
+            }
+          });
+        }
+
+        // Joystick Virtual Touch
+        const joyZone = document.getElementById('virtual-joystick');
+        const joyKnob = document.getElementById('joystick-knob');
+        let joyTouchId = null;
+
+        function updateJoystick(clientX, clientY) {
+          if (!joyZone || !joyKnob) return;
+          const rect = joyZone.getBoundingClientRect();
           const cx = rect.left + rect.width / 2;
           const cy = rect.top + rect.height / 2;
           const maxR = rect.width * 0.36;
-          let dx = touch.clientX - cx;
-          let dy = touch.clientY - cy;
+          let dx = clientX - cx;
+          let dy = clientY - cy;
           const dist = Math.hypot(dx, dy);
           if (dist > maxR) {
             dx = (dx / dist) * maxR;
             dy = (dy / dist) * maxR;
           }
-          knobEl.style.transform = `translate(${dx}px, ${dy}px)`;
+          joyKnob.style.transform = `translate(${dx}px, ${dy}px)`;
           appState.joyVec.x = dx / maxR;
           appState.joyVec.y = dy / maxR;
         }
 
-        joyEl?.addEventListener('touchstart', (e) => {
-          e.preventDefault();
-          if (activeJoyTouchId !== null) return;
-          const t = e.changedTouches[0];
-          activeJoyTouchId = t.identifier;
-          updateJoystickFromTouch(t);
-        }, { passive: false });
+        function resetJoystick() {
+          joyTouchId = null;
+          appState.joyVec.x = 0;
+          appState.joyVec.y = 0;
+          if (joyKnob) joyKnob.style.transform = 'translate(0px, 0px)';
+          if (joyZone) joyZone.classList.remove('border-[#D99B26]');
+        }
 
-        joyEl?.addEventListener('touchmove', (e) => {
-          e.preventDefault();
-          for (let i = 0; i < e.changedTouches.length; i++) {
-            const t = e.changedTouches[i];
-            if (t.identifier === activeJoyTouchId) {
-              updateJoystickFromTouch(t);
-              break;
+        if (joyZone) {
+          joyZone.addEventListener('touchstart', (e) => {
+            e.stopPropagation();
+            if (e.changedTouches.length > 0) {
+              const t = e.changedTouches[0];
+              joyTouchId = t.identifier;
+              joyZone.classList.add('border-[#D99B26]');
+              updateJoystick(t.clientX, t.clientY);
             }
-          }
-        }, { passive: false });
+          }, { passive: true });
 
-        const resetJoystick = (e) => {
-          for (let i = 0; i < e.changedTouches.length; i++) {
-            if (e.changedTouches[i].identifier === activeJoyTouchId) {
-              activeJoyTouchId = null;
-              appState.joyVec.x = 0;
-              appState.joyVec.y = 0;
-              knobEl.style.transform = 'translate(0px, 0px)';
-              break;
+          joyZone.addEventListener('touchmove', (e) => {
+            e.stopPropagation();
+            for (let i = 0; i < e.changedTouches.length; i++) {
+              const t = e.changedTouches[i];
+              if (t.identifier === joyTouchId) {
+                updateJoystick(t.clientX, t.clientY);
+              }
             }
-          }
-        };
-        joyEl?.addEventListener('touchend', resetJoystick);
-        joyEl?.addEventListener('touchcancel', resetJoystick);
+          }, { passive: true });
 
-        // Câmera por Arraste (Mouse & Touch no Canvas)
-        const canvasContainer = document.getElementById('canvas-container');
-        let isDragging = false;
-        let prevX = 0;
-        let prevY = 0;
-        let camTouchId = null;
-
-        canvasContainer.addEventListener('mousedown', (e) => {
-          if (!appState.hasEntered) return;
-          isDragging = true;
-          prevX = e.clientX;
-          prevY = e.clientY;
-        });
-
-        window.addEventListener('mousemove', (e) => {
-          if (!isDragging || !appState.hasEntered) return;
-          const dx = e.clientX - prevX;
-          const dy = e.clientY - prevY;
-          prevX = e.clientX;
-          prevY = e.clientY;
-          appState.cameraYaw -= dx * 0.0065;
-          const minP = appState.cameraMode === 'first' ? -0.65 : 0.08;
-          const maxP = appState.cameraMode === 'first' ? 0.65 : 1.05;
-          appState.cameraPitch = Math.max(minP, Math.min(maxP, appState.cameraPitch + dy * 0.005));
-        });
-
-        window.addEventListener('mouseup', () => {
-          isDragging = false;
-        });
-
-        canvasContainer.addEventListener('wheel', (e) => {
-          if (!appState.hasEntered || appState.cameraMode === 'first') return;
-          e.preventDefault();
-          appState.cameraDistance = Math.max(4.5, Math.min(22.0, appState.cameraDistance + e.deltaY * 0.008));
-        }, { passive: false });
-
-        canvasContainer.addEventListener('touchstart', (e) => {
-          if (!appState.hasEntered || camTouchId !== null) return;
-          const t = e.changedTouches[0];
-          camTouchId = t.identifier;
-          prevX = t.clientX;
-          prevY = t.clientY;
-        }, { passive: true });
-
-        canvasContainer.addEventListener('touchmove', (e) => {
-          if (!appState.hasEntered || camTouchId === null) return;
-          for (let i = 0; i < e.changedTouches.length; i++) {
-            const t = e.changedTouches[i];
-            if (t.identifier === camTouchId) {
-              const dx = t.clientX - prevX;
-              const dy = t.clientY - prevY;
-              prevX = t.clientX;
-              prevY = t.clientY;
-              appState.cameraYaw -= dx * 0.0075;
-              const minP = appState.cameraMode === 'first' ? -0.65 : 0.08;
-              const maxP = appState.cameraMode === 'first' ? 0.65 : 1.05;
-              appState.cameraPitch = Math.max(minP, Math.min(maxP, appState.cameraPitch + dy * 0.006));
-              break;
+          joyZone.addEventListener('touchend', (e) => {
+            for (let i = 0; i < e.changedTouches.length; i++) {
+              if (e.changedTouches[i].identifier === joyTouchId) {
+                resetJoystick();
+              }
             }
-          }
-        }, { passive: true });
-
-        const endCamTouch = (e) => {
-          for (let i = 0; i < e.changedTouches.length; i++) {
-            if (e.changedTouches[i].identifier === camTouchId) {
-              camTouchId = null;
-              break;
-            }
-          }
-        };
-        canvasContainer.addEventListener('touchend', endCamTouch);
-        canvasContainer.addEventListener('touchcancel', endCamTouch);
-
-        // Atalhos de Teclado
-        window.addEventListener('keydown', (e) => {
-          if (!appState.hasEntered) return;
-          if (document.activeElement && document.activeElement.tagName === 'INPUT') return;
-
-          switch (e.code) {
-            case 'KeyW':
-            case 'ArrowUp':
-              appState.keys.up = true;
-              break;
-            case 'KeyS':
-            case 'ArrowDown':
-              appState.keys.down = true;
-              break;
-            case 'KeyA':
-            case 'ArrowLeft':
-              appState.keys.left = true;
-              break;
-            case 'KeyD':
-            case 'ArrowRight':
-              appState.keys.right = true;
-              break;
-            case 'KeyV':
-              applyCameraMode(appState.cameraMode === 'first' ? 'third' : 'first');
-              break;
-            case 'Space':
-              e.preventDefault();
-              triggerLocalJump();
-              break;
-            case 'KeyC':
-              toggleLocalSit();
-              break;
-            case 'KeyP':
-            case 'KeyE':
-              e.preventDefault();
-              toggleLocalPlacard();
-              break;
-          }
-        });
-
-        window.addEventListener('keyup', (e) => {
-          switch (e.code) {
-            case 'KeyW':
-            case 'ArrowUp':
-              appState.keys.up = false;
-              break;
-            case 'KeyS':
-            case 'ArrowDown':
-              appState.keys.down = false;
-              break;
-            case 'KeyA':
-            case 'ArrowLeft':
-              appState.keys.left = false;
-              break;
-            case 'KeyD':
-            case 'ArrowRight':
-              appState.keys.right = false;
-              break;
-          }
-        });
+          });
+          joyZone.addEventListener('touchcancel', resetJoystick);
+        }
 
         window.addEventListener('resize', () => {
-          if (!camera || !renderer) return;
+          if (!threeReady || !renderer || !camera) return;
           camera.aspect = window.innerWidth / window.innerHeight;
           camera.updateProjectionMatrix();
           renderer.setSize(window.innerWidth, window.innerHeight);
         });
       }
 
-      // =========================================================================
-      // 16. INICIALIZAÇÃO SEGURA DO APLICATIVO
-      // =========================================================================
       function bootApp() {
         const params = new URLSearchParams(window.location.search);
-        const urlRoom = params.get('sala');
-        if (urlRoom) {
-          const cleanRoom = sanitizeRoomCode(urlRoom);
-          appState.roomCode = cleanRoom;
+        const salaParam = params.get('sala');
+        if (salaParam) {
+          const cleanSala = sanitizeRoomCode(salaParam);
           const roomInp = document.getElementById('lobby-room-code-input');
-          if (roomInp) roomInp.value = cleanRoom;
+          if (roomInp) roomInp.value = cleanSala;
+          appState.roomCode = cleanSala;
+
+          const cardJoin = document.getElementById('card-join-audience');
+          if (cardJoin) {
+            cardJoin.classList.remove('border-[#4E6E58]/40');
+            cardJoin.classList.add('border-2', 'border-[#D99B26]', 'bg-[#4E6E58]/20');
+          }
         }
 
-        setupUIListeners();
         initScene();
+        bindEvents();
         animate();
       }
 
